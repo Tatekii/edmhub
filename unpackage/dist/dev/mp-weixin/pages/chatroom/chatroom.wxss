@@ -1,0 +1,48 @@
+
+.dialoge.data-v-4748afe6 {
+	min-height: 1086rpx;
+	overflow: hidden;
+	padding-bottom: 10vh;
+}
+.wordsbox.data-v-4748afe6 {
+	background: #5fff8a;
+	width: 300rpx;
+}
+.input.data-v-4748afe6 {
+	height: 10vh;
+	position: fixed;
+	bottom: 0;
+	background: black;
+	width: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.input .inputwrap.data-v-4748afe6 {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	padding: 2%;
+	color: #ffffff;
+}
+.input .inputwrap .inputarea.data-v-4748afe6 {
+	border: 8rpx solid #232323;
+	border-radius: 16rpx;
+	height: 100%;
+	background: #090909;
+	font-size: 34rpx;
+	padding: 10rpx;
+	width: 100%;
+	box-sizing: border-box;
+}
+.input .send.data-v-4748afe6 {
+	-webkit-box-flex: 0;
+	-webkit-flex: 0 0 100rpx;
+	        flex: 0 0 100rpx;
+	padding: 3% 0;
+}
+.input .send .icon.data-v-4748afe6 {
+	width: 80rpx;
+	height: 80rpx;
+}
+

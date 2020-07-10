@@ -1,0 +1,26 @@
+
+.coverTip {
+	line-height: 420rpx;
+	text-align: center;
+	font-weight: bolder;
+}
+.editInfo {
+	color: skyblue;
+	border: 1rpx solid skyblue;
+	border-radius: 8rpx;
+	padding: 8rpx;
+	margin-right: 20rpx;
+	background-color: #232323;
+}
+.login {
+	position: fixed;
+	width: 400rpx;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	        transform: translateX(-50%) translateY(-50%);
+	margin: 0 auto;
+	z-index: 1;
+	color: #f8f8f8;
+}
+

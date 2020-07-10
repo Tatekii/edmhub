@@ -1,0 +1,53 @@
+
+.container.data-v-fa97bb78 {
+	color: #ffffff;
+}
+.reqItem.data-v-fa97bb78 {
+	display: flow-root;
+	padding: 10rpx;
+	border: 4rpx solid #000000;
+	border-radius: 20rpx;
+		background: #ed3b83;
+		margin-bottom: 8rpx;
+}
+.avatar.data-v-fa97bb78 {
+	width: 120rpx;
+	height: 120rpx;
+	border-radius: 20rpx;
+	overflow: hidden;
+	float: left;
+	margin: 0 10rpx;
+}
+.avatar .img.data-v-fa97bb78 {
+	width: 120rpx;
+	height: 120rpx;
+}
+.name.data-v-fa97bb78 {
+	font-size: 48rpx;
+	font-weight: bolder;
+	margin-left: 9px;
+	padding-left: 150rpx;
+	color: #161616;
+}
+.lastLogin.data-v-fa97bb78 {
+	float: right;
+	margin-top: -64rpx;
+	color: #000000;
+}
+.button.data-v-fa97bb78 {
+	float: right;
+}
+.button .btn.data-v-fa97bb78 {
+	border-radius: 20rpx;
+	padding: 6rpx;
+	color: #161616;
+}
+.button .intoHome.data-v-fa97bb78 {
+	background: #98ED;
+
+	margin-right: 12rpx;
+}
+.button .sendMsg.data-v-fa97bb78 {
+	background: #98ED00;
+}
+

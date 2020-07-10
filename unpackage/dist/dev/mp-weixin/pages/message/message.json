@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "Message",
+  "disableScroll": true,
+  "usingComponents": {
+    "scroll-to-top": "/components/scrollToTop/scrollToTop",
+    "req-list": "/components/reqList/reqList",
+    "friend-list": "/components/friendList/friendList",
+    "chat-list": "/components/chatList/chatList"
+  }
+}

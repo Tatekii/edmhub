@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/find/find",
+    "pages/message/message",
+    "pages/mine/mine",
+    "pages/editor/editor",
+    "pages/others/others",
+    "pages/chatroom/chatroom"
+  ],
+  "subPackages": [],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#FC870A",
+    "navigationBarTitleText": "EDM Hub",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#161616"
+  },
+  "tabBar": {
+    "selectedColor": "#FC870A",
+    "backgroundColor": "#000000",
+    "color": "#eeeeee",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/icon/icon.png",
+        "selectedIconPath": "static/icon_selected/icon.png"
+      },
+      {
+        "pagePath": "pages/find/find",
+        "iconPath": "static/icon/sousuo.png",
+        "selectedIconPath": "static/icon_selected/sousuo.png"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "iconPath": "static/icon/liaotian.png",
+        "selectedIconPath": "static/icon_selected/liaotian.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "iconPath": "static/icon/iconfuzhi.png",
+        "selectedIconPath": "static/icon_selected/iconfuzhi.png"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap23.json"
+}

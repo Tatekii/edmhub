@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "wordsbox": "/components/wordsbox/wordsbox"
+  }
+}

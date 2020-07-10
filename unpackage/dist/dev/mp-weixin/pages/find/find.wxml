@@ -1,0 +1,1 @@
+<view class="container data-v-408c90a6"><view class="tab data-v-408c90a6"><view data-event-opts="{{[['tap',[['recommendTab',['$event']]]]]}}" class="{{['data-v-408c90a6',tab==='recommend'?'active':'']}}" bindtap="__e">推荐</view></view><user-list vue-id="5df3f5c0-1" type="{{tab}}" listData="{{userList}}" class="data-v-408c90a6" bind:__l="__l"></user-list></view>

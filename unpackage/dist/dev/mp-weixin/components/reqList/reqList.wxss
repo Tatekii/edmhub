@@ -1,0 +1,40 @@
+
+.container.data-v-c08c7684 {
+	color: #ffffff;
+	padding: 10rpx;
+	border: 4rpx solid #000000;
+	border-radius: 20rpx;
+	background: #2c405a;
+}
+.list .reqItem.data-v-c08c7684 {
+	margin: 4rpx;
+}
+.list .reqItem .word.data-v-c08c7684 {
+	border: 4rpx solid black;
+	border-radius: 40rpx;
+	background: #232323;
+	padding: 10rpx;
+}
+.list .reqItem .button.data-v-c08c7684 {
+	text-align:right;
+	color: #000000;
+	margin:10rpx 0
+}
+.list .reqItem .button .reqCount.data-v-c08c7684 {
+	background-color: #009d91;
+	border-radius: 40rpx;
+	padding: 4rpx 10rpx;
+}
+.list .reqItem .button .refuceItem.data-v-c08c7684 {
+	margin-left: 4rpx;
+	background-color: #dd524d;
+	border-radius: 40rpx;
+	padding: 4rpx 10rpx;
+}
+.list .reqItem .button .fakeInto.data-v-c08c7684 {
+	margin-left: 4rpx;
+	padding: 4rpx 10rpx;
+	background-color: #ffa700;
+	border-radius: 40rpx;
+}
+

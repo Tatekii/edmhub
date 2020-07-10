@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:////Users/aimi/代码/edmHUB/edmHUB/main.js"],"names":["createPage","Page"],"mappings":";;;;;;;;;;kDAAA,wCAAmB;AACnB;AACA,2M;AACAA,UAAU,CAACC,cAAD,CAAV,C","file":"pages/mine/index.js","sourcesContent":["import 'uni-pages';import '@dcloudio/uni-stat';\nimport Vue from 'vue'\nimport Page from './pages/mine/index.vue'\ncreatePage(Page)"],"sourceRoot":""}

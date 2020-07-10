@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "修改您的档案",
+  "usingComponents": {
+    "uni-icons": "/components/uni-icons/uni-icons"
+  }
+}

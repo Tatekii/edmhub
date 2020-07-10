@@ -1,0 +1,26 @@
+
+.container.data-v-408c90a6 {
+	background: #161616;
+	min-height: 100vh;
+	color: #fff;
+}
+.tab.data-v-408c90a6 {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	height: 80rpx;
+	line-height: 80rpx;
+	font-size: 44rpx;
+	font-weight: bolder;
+}
+.tab view.data-v-408c90a6 {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	text-align: center;
+	border-bottom: 1rpx #232323 solid;
+}
+.tab .active.data-v-408c90a6 {
+	border-bottom: 6rpx #fc870a solid;
+}
+
