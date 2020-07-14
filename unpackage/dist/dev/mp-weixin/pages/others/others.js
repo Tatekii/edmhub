@@ -169,52 +169,66 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _vuex = __webpack_require__(/*! vuex */ 11);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var db = wx.cloud.database();var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! ../../components/uni-popup/uni-popup-dialog.vue */ 132));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniPopupDialog: uniPopupDialog }, data: function data() {return { peopleInfo: {}, urFriend: false, from: '', reqIng: true };}, computed: _objectSpread({}, (0, _vuex.mapState)(['userInfo'])), methods: _objectSpread({}, (0, _vuex.mapMutations)(['update']), { acceptReq: function acceptReq() {var _this = this;uni.showLoading({ title: '请稍后' });console.log('接受');wx.cloud.callFunction({ name: 'acceptReq', data: { openid: this.peopleInfo._openid } }).
 
-      then(function (res) {
-        console.log(res);
-        // 更新本地friendlist
+
+
+
+
+
+
+
+
+var _vuex = __webpack_require__(/*! vuex */ 11);function _createForOfIteratorHelper(o) {if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var it,normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var db = wx.cloud.database();var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! ../../components/uni-popup/uni-popup-dialog.vue */ 132));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { uniPopupDialog: uniPopupDialog }, data: function data() {return { peopleInfo: {}, urFriend: false, from: '', reqIng: true };}, computed: _objectSpread({}, (0, _vuex.mapState)(['userInfo', 'chats'])), methods: _objectSpread({}, (0, _vuex.mapMutations)(['update']), { acceptReq: function acceptReq() {var _this = this;uni.showLoading({ title: '请稍后' });console.log('接受');wx.cloud.callFunction({ name: 'acceptReq', data: { openid: this.peopleInfo._openid } }).then(function (res) {console.log(res); // 更新本地friendlist
         // this.update({
         // 	friend:newList
         // })
-        _this.reqIng = false;
-      }).then(function () {
-        uni.hideLoading();
+        _this.reqIng = false;}).then(function () {uni.hideLoading();
       });
     },
     refuseReq: function refuseReq() {
       console.log('拒绝');
-      wx.cloud.callFunction({
+      wx.cloud.
+      callFunction({
         name: 'refuseReq',
         data: {
           openid: this.peopleInfo._openid } }).
+
 
       then(function (res) {
         console.log(res);
@@ -222,6 +236,31 @@ var db = wx.cloud.database();var uniPopupDialog = function uniPopupDialog() {__w
           uni.navigateBack();
         }
       });
+    },
+    sendMsg: function sendMsg() {
+      // intoChatRoom
+      var openid = this.peopleInfo._openid;
+      var chatid;var _iterator = _createForOfIteratorHelper(
+      this.chats),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var item = _step.value;
+          if (item._openid === openid) {
+            chatid = item.chatid;
+          }
+        }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+      if (!openid || !chatid) {
+        uni.showToast({
+          title: '未携带参数' });
+
+      }
+
+      uni.navigateTo({
+        url: '../../pages/chatroom/chatroom?openid=' + openid + '&chatid=' + chatid,
+        fail: function fail(err) {
+          uni.showToast({
+            title: '出错了' });
+
+          console.log(err);
+        } });
+
     },
     close: function close(done) {
       done();
@@ -309,10 +348,12 @@ var db = wx.cloud.database();var uniPopupDialog = function uniPopupDialog() {__w
         confirmColor: 'red',
         success: function success() {
           console.log("\u5220\u9664".concat(_this3.peopleInfo.nickName));
-          wx.cloud.callFunction({
+          wx.cloud.
+          callFunction({
             name: 'delFriend',
             data: {
               openid: _this3.peopleInfo._openid } }).
+
 
           then(function (res) {
             console.log(res.result.stats.updated);

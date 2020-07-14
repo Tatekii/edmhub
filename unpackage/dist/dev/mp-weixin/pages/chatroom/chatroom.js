@@ -190,8 +190,9 @@ var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(
 //
 //
 //
-var db = wx.cloud.database();var _default = { data: function data() {return { dialoge: [], targetInfo: [], message: '', chatid: '' };}, computed: _objectSpread({}, (0, _vuex.mapState)(['userInfo'])), methods: { isRead: function isRead(chatid) {// 清除未读标签
-      wx.cloud.callFunction({ name: 'isRead', data: {
+var db = wx.cloud.database();var _default = { data: function data() {return { dialoge: [], targetInfo: [], message: '', chatid: '' };}, computed: _objectSpread({}, (0, _vuex.mapState)(['userInfo', 'chats'])), methods: _objectSpread({}, (0, _vuex.mapMutations)(['updateLast']), { isRead: function isRead(chatid) {// 清除未读标签
+      wx.cloud.callFunction({ name: 'isRead',
+        data: {
           chatid: chatid } }).
 
 
@@ -210,12 +211,14 @@ var db = wx.cloud.database();var _default = { data: function data() {return { di
       var msg = this.message;
       var chatid = this.chatid;
       var target = this.targetInfo._openid;
-      wx.cloud.callFunction({
+      wx.cloud.
+      callFunction({
         name: 'sendMsg',
         data: {
           msg: msg,
           chatid: chatid,
           target: target } }).
+
 
       then(function (res) {
         console.log("\u53D1\u9001".concat(msg, "\u7ED9").concat(target), res.result);
@@ -228,21 +231,43 @@ var db = wx.cloud.database();var _default = { data: function data() {return { di
       doc(this.chatid).
       watch({
         onChange: function onChange(snapshot) {
-          console.log(snapshot);
-          // let newDialoge = snapshot.docs[0].dialoge
-          // newDialoge = newDialoge[newDialoge.length-1]
-          // // 页面
-          // this.dialoge = this.dialoge.concat(newDialoge)
+          // 回避初始化
+          if (snapshot.docChanges[0].dataType === 'init') {
+            console.log('init');
+            return;
+          }
+
+          // TODO
+          // 手动执行更新页面，缓存添加，修改last // done
+
+          // TODO
+          // 判断自己发消息引起的watch变化
+          // 还是对方发消息引起的watch变化！！
+
+
+          var newDialoge = snapshot.docs[0].dialoge;
+          if (!newDialoge.length) return;
+
+          newDialoge = newDialoge[newDialoge.length - 1];
+
+          // if(newDialoge.speaker!==this.userInfo._openid) return 
+
+          console.log('newDialoge', newDialoge);
+          // 页面
+          _this2.dialoge = _this2.dialoge.concat(newDialoge);
+          _this2.scroll();
           // 缓存
-          // let oldCatch = uni.getStorageSync(this.chatid) || []
-          // uni.setStorageSync(this.chatid,oldCatch.concat(newDialoge))
-          _this2.dialoge = uni.getStorageSync(_this2.chatid);
+          var oldCatch = uni.getStorageSync(_this2.chatid) || [];
+          uni.setStorageSync(_this2.chatid, oldCatch.concat(newDialoge));
+          // last
+          console.log({ chatid: _this2.chatid, last: newDialoge });
+          _this2.updateLast({ chatid: _this2.chatid, last: newDialoge });
         },
         onError: function onError(err) {
           console.error('the watch closed because of error', err);
         } });
 
-    } },
+    } }),
 
   onLoad: function onLoad(options) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var friendData, _iterator, _step, item;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
               console.log('进入聊天--->', options);

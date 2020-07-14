@@ -1,12 +1,21 @@
 <template>
 	<view>
 		<uni-popup v-if="from === 'find'" ref="popup" type="dialog">
-			<uni-popup-dialog type="info" mode="input" title="你会怎么打招呼" maxlength="35" placeholder="35字引起对方的注意" :before-close="true" @close="close" @confirm="confirm"></uni-popup-dialog>
+			<uni-popup-dialog
+				type="info"
+				mode="input"
+				title="你会怎么打招呼"
+				maxlength="35"
+				placeholder="35字引起对方的注意"
+				:before-close="true"
+				@close="close"
+				@confirm="confirm"
+			></uni-popup-dialog>
 		</uni-popup>
-		<view v-if="from==='friendReq'" class="reqButton">
-				<button @tap="acceptReq" :disabled="!reqIng" type="primary">🤝你好呀</button>
-			  <button @tap="refuseReq" :disabled="!reqIng" type="warn">👋拒绝</button>
-				 <button @tap="sendMsg" :disabled="reqIng" type="primary">🎉发消息</button>
+		<view v-if="from === 'friendReq'" class="reqButton">
+			<button @tap="acceptReq" :disabled="!reqIng" type="primary">🤝你好呀</button>
+			<button @tap="refuseReq" :disabled="!reqIng" type="warn">👋拒绝</button>
+			<button @tap="sendMsg" :disabled="reqIng" type="primary">🎉发消息</button>
 		</view>
 		<userCenter :userInfo="peopleInfo" type="other" v-on:likeU="handleLike">
 			<template #editor>
@@ -27,7 +36,7 @@
 
 <script>
 const db = wx.cloud.database();
-import { mapState,mapMutations } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import uniPopupDialog from '../../components/uni-popup/uni-popup-dialog.vue';
 export default {
 	components: {
@@ -38,48 +47,78 @@ export default {
 			peopleInfo: {},
 			urFriend: false,
 			from: '',
-			reqIng:true
+			reqIng: true
 		};
 	},
 	computed: {
-		...mapState(['userInfo'])
+		...mapState(['userInfo', 'chats'])
 	},
 	methods: {
 		...mapMutations(['update']),
-		acceptReq(){
+		acceptReq() {
 			uni.showLoading({
-				title:'请稍后'
-			})
-			console.log('接受')
-			wx.cloud.callFunction({
-				name:'acceptReq',
-				data:{
-					openid:this.peopleInfo._openid
-				}
-			}).then(res=>{
-				console.log(res)
+				title: '请稍后'
+			});
+			console.log('接受');
+			wx.cloud
+				.callFunction({
+					name: 'acceptReq',
+					data: {
+						openid: this.peopleInfo._openid
+					}
+				})
+				.then(res => {
+					console.log(res);
 					// 更新本地friendlist
 					// this.update({
 					// 	friend:newList
 					// })
-					this.reqIng=false
-			}).then(()=>{
-				uni.hideLoading()
-			})
+					this.reqIng = false;
+				})
+				.then(() => {
+					uni.hideLoading();
+				});
 		},
-		refuseReq(){
-			console.log('拒绝')
-			wx.cloud.callFunction({
-				name:'refuseReq',
-				data:{
-					openid:this.peopleInfo._openid
+		refuseReq() {
+			console.log('拒绝');
+			wx.cloud
+				.callFunction({
+					name: 'refuseReq',
+					data: {
+						openid: this.peopleInfo._openid
+					}
+				})
+				.then(res => {
+					console.log(res);
+					if (res.result.stats.updated === 1) {
+						uni.navigateBack();
+					}
+				});
+		},
+		sendMsg() {
+			// intoChatRoom
+			let openid = this.peopleInfo._openid;
+			let chatid;
+			for (let item of this.chats) {
+				if (item._openid === openid) {
+					chatid = item.chatid;
 				}
-			}).then(res=>{
-				console.log(res)
-				if(res.result.stats.updated===1){
-					uni.navigateBack()
+			}
+			if (!openid || !chatid) {
+				uni.showToast({
+					title: '未携带参数'
+				});
+			}
+
+			uni.navigateTo({
+				url: '../../pages/chatroom/chatroom?openid=' + openid + '&chatid=' + chatid,
+				fail(err) {
+					uni.showToast({
+						title: '出错了'
+					});
+					console.log(err);
 				}
-			})
+			});
 		},
 		close(done) {
 			done();
@@ -161,30 +200,32 @@ export default {
 		},
 		delFriend() {
 			uni.showModal({
-				content:'确认移除好友吗？',
-				cancelText:'再想想',
-				confirmText:'拜拜咯',
-				confirmColor:'red',	
+				content: '确认移除好友吗？',
+				cancelText: '再想想',
+				confirmText: '拜拜咯',
+				confirmColor: 'red',
 				success: () => {
-						console.log(`删除${this.peopleInfo.nickName}`)
-						wx.cloud.callFunction({
-							name:'delFriend',
-							data:{
-								openid:this.peopleInfo._openid
-							}
-						}).then(res=>{
-							console.log(res.result.stats.updated)
-							if(res.result.stats.updated===1){
-								console.log('成功删除')
-							}else{
-								uni.showToast({
-									icon:'info',
-									title:'服务器忙请稍后再试'
-								})
+					console.log(`删除${this.peopleInfo.nickName}`);
+					wx.cloud
+						.callFunction({
+							name: 'delFriend',
+							data: {
+								openid: this.peopleInfo._openid
 							}
 						})
+						.then(res => {
+							console.log(res.result.stats.updated);
+							if (res.result.stats.updated === 1) {
+								console.log('成功删除');
+							} else {
+								uni.showToast({
+									icon: 'info',
+									title: '服务器忙请稍后再试'
+								});
+							}
+						});
 				}
-			})
+			});
 		}
 	},
 	onLoad(options) {
@@ -204,8 +245,8 @@ export default {
 			.then(res => {
 				this.peopleInfo = res.data[0];
 				uni.setNavigationBarTitle({
-					title:this.peopleInfo.nickName+'的主页'
-				})
+					title: this.peopleInfo.nickName + '的主页'
+				});
 				if (this.userInfo.friend.includes(this.peopleInfo._openid)) {
 					this.urFriend = true;
 				}
@@ -221,16 +262,16 @@ export default {
 </script>
 
 <style scoped>
-	.reqButton{
-		display: flex;
-		margin: 4rpx 0;
-	}
-	.reqButton button{
-		border: 8rpx solid #000;
-		display: inline-block;
-		flex: 1;
-		border-radius: 30rpx;
-	}
+.reqButton {
+	display: flex;
+	margin: 4rpx 0;
+}
+.reqButton button {
+	border: 8rpx solid #000;
+	display: inline-block;
+	flex: 1;
+	border-radius: 30rpx;
+}
 .editInfo.stranger {
 	color: pink;
 	border: 1rpx solid hotpink;

@@ -18,7 +18,7 @@
 
 <script>
 const db = wx.cloud.database();
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 export default {
 	data() {
 		return {
@@ -29,9 +29,10 @@ export default {
 		};
 	},
 	computed: {
-		...mapState(['userInfo'])
+		...mapState(['userInfo', 'chats'])
 	},
 	methods: {
+		...mapMutations(['updateLast']),
 		isRead(chatid) {
 			// 清除未读标签
 			wx.cloud
@@ -53,20 +54,22 @@ export default {
 		},
 		send() {
 			// 发送消息的逻辑
-			let msg = this.message
-			let chatid = this.chatid
-			let target = this.targetInfo._openid
-			wx.cloud.callFunction({
-				name:'sendMsg',
-				data:{
-					msg,
-					chatid,
-					target
-				}
-			}).then(res=>{
-				console.log(`发送${msg}给${target}`,res.result)
-				this.message = ''
-			})
+			let msg = this.message;
+			let chatid = this.chatid;
+			let target = this.targetInfo._openid;
+			wx.cloud
+				.callFunction({
+					name: 'sendMsg',
+					data: {
+						msg,
+						chatid,
+						target
+					}
+				})
+				.then(res => {
+					console.log(`发送${msg}给${target}`, res.result);
+					this.message = '';
+				});
 		},
 		watchCurrentChat() {
 			// watch当前聊天
@@ -74,15 +77,37 @@ export default {
 				.doc(this.chatid)
 				.watch({
 					onChange: snapshot => {
-						console.log(snapshot);
-						// let newDialoge = snapshot.docs[0].dialoge
-						// newDialoge = newDialoge[newDialoge.length-1]
-						// // 页面
-						// this.dialoge = this.dialoge.concat(newDialoge)
+						// 回避初始化
+						if (snapshot.docChanges[0].dataType === 'init') {
+							console.log('init');
+							return;
+						}
+
+						// TODO
+						// 手动执行更新页面，缓存添加，修改last // done
+						
+						// TODO
+						// 判断自己发消息引起的watch变化
+						// 还是对方发消息引起的watch变化！！
+						
+
+						let newDialoge = snapshot.docs[0].dialoge;
+						if(!newDialoge.length) return
+						
+						newDialoge = newDialoge[newDialoge.length - 1];
+						
+						// if(newDialoge.speaker!==this.userInfo._openid) return 
+						
+						console.log('newDialoge',newDialoge);
+						// 页面
+						this.dialoge = this.dialoge.concat(newDialoge);
+						this.scroll();
 						// 缓存
-						// let oldCatch = uni.getStorageSync(this.chatid) || []
-						// uni.setStorageSync(this.chatid,oldCatch.concat(newDialoge))
-						this.dialoge = uni.getStorageSync(this.chatid);
+						let oldCatch = uni.getStorageSync(this.chatid) || [];
+						uni.setStorageSync(this.chatid, oldCatch.concat(newDialoge));
+						// last
+						console.log({ chatid: this.chatid, last: newDialoge })
+						this.updateLast({ chatid: this.chatid, last: newDialoge });
 					},
 					onError: err => {
 						console.error('the watch closed because of error', err);

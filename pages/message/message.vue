@@ -18,7 +18,7 @@
 
 			<view class="friendList" v-if="showList === 'fri'"><friendList :list="friendData" v-on:intoChatRoom="intoChatRoom"></friendList></view>
 		</view>
-
+		
 		<view class="chatList" :class="showList ? 'fade' : ''"><chatList :chats="chats" v-on:intoChatRoom="intoChatRoom"></chatList></view>
 	</view>
 </template>
@@ -31,7 +31,6 @@ const _ = db.command;
 export default {
 	data() {
 		return {
-			now: new Date(),
 			showList: false,
 			// 返回顶部
 			showButton: false,
@@ -50,21 +49,14 @@ export default {
 				}
 			}
 		},
-		chatLength(){
-			return this.chats.length
+		chatLength() {
+			return this.chats.length;
 		}
-		
 	},
 	watch: {
 		chatLength() {
 			console.log('聊天组改变');
-			// 拉取好友的数据
 			this.updateFriendList();
-			// 新增了聊天或者
-			// this.updateLast()
-			// isNew标签被触发！！！
-			// 聊天会被自动拉到缓存
-			// 读取缓存
 		}
 	},
 	methods: {
@@ -120,7 +112,6 @@ export default {
 			this.friendData = list;
 			await uni.setStorageSync('friendListData', list);
 		},
-
 		intoChatRoom(arg) {
 			let openid, chatid;
 			if (arg.openid) {
@@ -155,9 +146,6 @@ export default {
 			});
 		}
 	},
-	onShow() {
-		this.now = new Date();
-	},
 	onLoad() {
 		// if (!this.hasLogin) {
 		// 	uni.showModal({
@@ -184,13 +172,10 @@ export default {
 		// 		}
 		// 	});
 		// }
-		
+
 		this.friendData = uni.getStorageSync('friendListData');
 		// this.updateLast()
 		// console.log(getApp().globalData.updateList)
-	},
-	onShow() {
-		this.updateFriendList();
 	},
 	onPageScroll(e) {
 		// console.log(e)

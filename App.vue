@@ -1,6 +1,11 @@
 <script>
 import { mapMutations, mapState } from 'vuex';
 export default {
+	data() {
+		return {
+			flag: true
+		};
+	},
 	computed: {
 		...mapState(['userInfo', 'chats'])
 	},
@@ -35,9 +40,9 @@ export default {
 					this.watchUserInfo();
 				});
 		},
-		async watchMsg() {
+		async watchMsg(code) {
 			const db = wx.cloud.database();
-			let catchLast
+			let catchLast;
 			await db
 				.collection('message')
 				.orderBy('date', 'desc')
@@ -46,24 +51,20 @@ export default {
 				})
 				.watch({
 					onChange: async snapshot => {
+						uni.hideTabBarRedDot({
+							index: 2
+						});
+						if (this.flag === false) return; // flag
+
 						let data = snapshot.docs[0];
-						console.log('watch到message');
-						// commit至全局
-						await this.commitMsg(data);
+						let commitdData = Object.assign({}, data);
+						console.log('App watchMsg');
+						console.log(data);
+						await this.commitMsg(commitdData);
 
 						// 显示小红点
 						let flag1 = data.request.length; //好友请求？
 						let flag2 = false; // 新消息？
-						if (flag1 || flag2) {
-							uni.showTabBarRedDot({
-								index: 2
-							});
-						}
-						if (!flag1 && !flag2) {
-							uni.hideTabBarRedDot({
-								index: 2
-							});
-						}
 
 						let arr = [];
 
@@ -73,41 +74,32 @@ export default {
 									// 下载会话
 									// i.chatid
 									arr.push(String(i.chatid));
-									
 								} else {
 									const chatid = i.chatid;
-									let last = uni.getStorageSync(chatid) || []
+									let last = uni.getStorageSync(chatid) || [];
 									last = last[last.length - 1];
-									if(last===catchLast)return
-									catchLast = last
+									if (last === catchLast) return;
+									catchLast = last;
 									const obj = { chatid: chatid, last: last };
-									console.log('local', obj);
-									this.updateLast(obj);
+									console.log('读取local缓存', obj);
+									await this.updateLast(obj);
 								}
-								
-								if(!i.isRead){
+
+								if (!i.isRead) {
 									flag2 = true;
 								}
 							}
 						}
-
-						// 线上有新内容的
-						if(arr.length){
-							await this.downlaodChat(arr);
-						}
-						
-
-						// 显示小红点
 						if (flag1 || flag2) {
 							uni.showTabBarRedDot({
 								index: 2
 							});
 						}
 
-						if (!flag1 && !flag2) {
-							uni.hideTabBarRedDot({
-								index: 2
-							});
+						// 线上有新内容的
+						if (arr.length) {
+							console.log('检测到new');
+							await this.downlaodChat(arr);
 						}
 					},
 					onError: err => {
@@ -153,33 +145,31 @@ export default {
 					console.log('拉取线上聊天', data);
 
 					for (let item of data) {
-
-						const oldData = uni.getStorageSync(item._id) || [];
-						uni.setStorageSync(item._id, oldData.concat(item.dialoge));
 						let last = uni.getStorageSync(item._id);
 						last = last[last.length - 1];
 						let obj = { chatid: item._id, last: last };
-						// 修改vuex中的chats.$.last
 						this.updateLast(obj);
 					}
-				}).then(()=>{
-					// 清除isNew
-					// 删除线上消息
-					
-					console.log(chatsArr)
-					console.log('clearisnew')
-					this.clearIsNew(chatsArr)
 				})
+				.then(() => {
+					// 清除isNew
+					this.clearIsNew(chatsArr);
+				});
 		},
-		clearIsNew(list){
-				wx.cloud.callFunction({
-					name:'clearIsNew',
-					data:{
+		async clearIsNew(list) {
+			this.flag = false;
+			wx.cloud
+				.callFunction({
+					name: 'clearIsNew',
+					data: {
 						list
 					}
-				}).then(res=>{
-					console.log(res)
 				})
+				.then(res => {
+					console.log('clearIsNew');
+					// 重新启动监听
+					this.flag = true;
+				});
 		}
 	},
 	onLaunch: async function() {

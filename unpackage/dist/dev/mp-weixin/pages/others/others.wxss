@@ -1,17 +1,17 @@
 
-.reqButton.data-v-a533cf34{
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: flex;
-		margin: 4rpx 0;
+.reqButton.data-v-a533cf34 {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	margin: 4rpx 0;
 }
-.reqButton button.data-v-a533cf34{
-		border: 8rpx solid #000;
-		display: inline-block;
-		-webkit-box-flex: 1;
-		-webkit-flex: 1;
-		        flex: 1;
-		border-radius: 30rpx;
+.reqButton button.data-v-a533cf34 {
+	border: 8rpx solid #000;
+	display: inline-block;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	border-radius: 30rpx;
 }
 .editInfo.stranger.data-v-a533cf34 {
 	color: pink;
