@@ -181,6 +181,9 @@ var _default =
       this.$emit('intoChatRoom', { chatid: chatid });
     },
     getLastWords: function getLastWords(data) {
+      if (!data) {
+        return '无新消息';
+      }
       return '[' + this.$tools.comparDate(data.date) + '前]' + data.content;
       //格式化
     } } };exports.default = _default;

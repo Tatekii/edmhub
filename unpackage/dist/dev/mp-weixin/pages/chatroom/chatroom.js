@@ -206,77 +206,82 @@ var db = wx.cloud.database();var _default = { data: function data() {return { di
         duration: 0 });
 
     },
-    send: function send() {var _this = this;
-      // 发送消息的逻辑
-      var msg = this.message;
-      var chatid = this.chatid;
-      var target = this.targetInfo._openid;
-      wx.cloud.
-      callFunction({
-        name: 'sendMsg',
-        data: {
-          msg: msg,
-          chatid: chatid,
-          target: target } }).
+    send: function send() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var msg, chatid, target;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                console.log('开启roomwatch');_context2.next = 3;return (
+                  _this.watchCurrentChat());case 3:
+
+                // 发送消息的逻辑
+                msg = _this.message;
+                chatid = _this.chatid;
+                target = _this.targetInfo._openid;_context2.next = 8;return (
+                  wx.cloud.
+                  callFunction({
+                    name: 'sendMsg',
+                    data: {
+                      msg: msg,
+                      chatid: chatid,
+                      target: target } }).
 
 
-      then(function (res) {
-        console.log("\u53D1\u9001".concat(msg, "\u7ED9").concat(target), res.result);
-        _this.message = '';
-      });
+                  then( /*#__PURE__*/function () {var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(res) {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                              console.log("\u53D1\u9001".concat(msg, "\u7ED9").concat(target), res.result);
+                              _this.message = '';
+                              console.log('关闭roomwatch');_context.next = 5;return (
+                                _this.watcher.close());case 5:case "end":return _context.stop();}}}, _callee);}));return function (_x) {return _ref.apply(this, arguments);};}()));case 8:case "end":return _context2.stop();}}}, _callee2);}))();
+
     },
-    watchCurrentChat: function watchCurrentChat() {var _this2 = this;
-      // watch当前聊天
-      db.collection('chats').
-      doc(this.chatid).
-      watch({
-        onChange: function onChange(snapshot) {
-          // 回避初始化
-          if (snapshot.docChanges[0].dataType === 'init') {
-            console.log('init');
-            return;
-          }
+    watchCurrentChat: function watchCurrentChat() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
 
-          // TODO
-          // 手动执行更新页面，缓存添加，修改last // done
+                  db.collection('chats').
+                  doc(_this2.chatid).
+                  watch({
+                    onChange: function onChange(snapshot) {
+                      console.log(snapshot);
+                      // 回避初始化
+                      // 弃用
+                      // if (snapshot.docChanges[0].dataType === 'init') {
+                      // 	console.log('init');
+                      // 	return;
+                      // }
 
-          // TODO
-          // 判断自己发消息引起的watch变化
-          // 还是对方发消息引起的watch变化！！
+                      if (!snapshot.docs.length) return;
+                      var newDialoge = snapshot.docs[0].dialoge;
 
+                      newDialoge = newDialoge[newDialoge.length - 1];
 
-          var newDialoge = snapshot.docs[0].dialoge;
-          if (!newDialoge.length) return;
+                      // if(newDialoge.speaker!==this.userInfo._openid) return 
 
-          newDialoge = newDialoge[newDialoge.length - 1];
+                      console.log('newDialoge', newDialoge);
+                      // 页面
+                      _this2.dialoge = _this2.dialoge.concat(newDialoge);
+                      // 滚动到底部
+                      _this2.$nextTick(function () {
+                        _this2.scroll();
+                      });
+                      // 缓存
+                      var oldCatch = uni.getStorageSync(_this2.chatid);
+                      console.log('oldCatch', oldCatch);
+                      uni.setStorageSync(_this2.chatid, oldCatch.concat(newDialoge));
+                      // last
+                      _this2.updateLast({ chatid: _this2.chatid, last: newDialoge });
 
-          // if(newDialoge.speaker!==this.userInfo._openid) return 
-
-          console.log('newDialoge', newDialoge);
-          // 页面
-          _this2.dialoge = _this2.dialoge.concat(newDialoge);
-          _this2.scroll();
-          // 缓存
-          var oldCatch = uni.getStorageSync(_this2.chatid) || [];
-          uni.setStorageSync(_this2.chatid, oldCatch.concat(newDialoge));
-          // last
-          console.log({ chatid: _this2.chatid, last: newDialoge });
-          _this2.updateLast({ chatid: _this2.chatid, last: newDialoge });
-        },
-        onError: function onError(err) {
-          console.error('the watch closed because of error', err);
-        } });
+                    },
+                    onError: function onError(err) {
+                      console.error('the watch closed because of error', err);
+                    } }));case 2:_this2.watcher = _context3.sent;case 3:case "end":return _context3.stop();}}}, _callee3);}))();
 
     } }),
 
-  onLoad: function onLoad(options) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var friendData, _iterator, _step, item;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+  onLoad: function onLoad(options) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var friendData, _iterator, _step, item;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
               console.log('进入聊天--->', options);
+
               _this3.chatid = options.chatid;
               _this3.dialoge = uni.getStorageSync(options.chatid);
 
               // targetInfo
               friendData = uni.getStorageSync('friendListData');_iterator = _createForOfIteratorHelper(
               friendData);try {for (_iterator.s(); !(_step = _iterator.n()).done;) {item = _step.value;
+
                   if (item._openid === options.openid) {
                     _this3.targetInfo = item;
                   }
@@ -290,8 +295,7 @@ var db = wx.cloud.database();var _default = { data: function data() {return { di
                 // scrollToBottom
                 _this3.scroll();
               });
-              _this3.isRead(_this3.chatid);
-              _this3.watchCurrentChat();case 10:case "end":return _context.stop();}}}, _callee);}))();
+              _this3.isRead(_this3.chatid);case 9:case "end":return _context4.stop();}}}, _callee4);}))();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -64,7 +64,8 @@ export default {
 						.then(async res => {
 							this.login(res.result.data);
 							// !!!
-							this.watchMsg();
+							// TODO
+							// this.watchMsg();
 							wx.setNavigationBarTitle({
 								title: res.result.data.nickName + '的主页'
 							});
@@ -153,76 +154,76 @@ export default {
 					});
 				});
 		},
-		async watchMsg() {
-			await db
-				.collection('message')
-				.orderBy('date', 'desc')
-				.where({
-					user: this.userInfo._openid
-				})
-				.watch({
-					onChange: snapshot => {
-						const data = snapshot.docs[0];
-						if (snapshot.docChanges[0].dataType === 'init') return; // 避开初始化
-						console.log('watch到msg');
-						console.log(data);
-						this.commitMsg(data);
+		// async watchMsg() {
+		// 	await db
+		// 		.collection('message')
+		// 		.orderBy('date', 'desc')
+		// 		.where({
+		// 			user: this.userInfo._openid
+		// 		})
+		// 		.watch({
+		// 			onChange: snapshot => {
+		// 				const data = snapshot.docs[0];
+		// 				if (snapshot.docChanges[0].dataType === 'init') return; // 避开初始化
+		// 				console.log('watch到msg');
+		// 				console.log(data);
+		// 				this.commitMsg(data);
 
-						let flag1 = data.request.length; //有无请求
-						let flag2 = false; // 有无新消息
-						let arr = []
-						if (data.chats) {
-							for (let i of data.chats) {
-								if (i.isNew) {
-									flag2 = true;
-									arr.push(i.chatid)
-									// 检测到isNew
-									// 获取chatid拉取聊天到本地缓存
-								}
-							}
-						}
-						if(flag2){
-							this.downlaodChat(arr)
-						}
-						if (flag1 || flag2) {
-							uni.showTabBarRedDot({
-								index: 2
-							});
-						}
+		// 				let flag1 = data.request.length; //有无请求
+		// 				let flag2 = false; // 有无新消息
+		// 				let arr = []
+		// 				if (data.chats) {
+		// 					for (let i of data.chats) {
+		// 						if (i.isNew) {
+		// 							flag2 = true;
+		// 							arr.push(i.chatid)
+		// 							// 检测到isNew
+		// 							// 获取chatid拉取聊天到本地缓存
+		// 						}
+		// 					}
+		// 				}
+		// 				if(flag2){
+		// 					this.downlaodChat(arr)
+		// 				}
+		// 				if (flag1 || flag2) {
+		// 					uni.showTabBarRedDot({
+		// 						index: 2
+		// 					});
+		// 				}
 
-						if (!flag1 && !flag2) {
-							uni.hideTabBarRedDot({
-								index: 2
-							});
-						}
+		// 				if (!flag1 && !flag2) {
+		// 					uni.hideTabBarRedDot({
+		// 						index: 2
+		// 					});
+		// 				}
 						
 						
-					},
-					onError: err => {
-						console.error('the watch closed because of error', err);
-					}
-				});
-		},
-		async downlaodChat(chatsArr) {
-			await wx.cloud
-				.callFunction({
-					name: 'getChatData',
-					data: {
-						list:chatsArr
-					}
-				})
-				.then(async res => {
-					const data = res.result.data;
-					console.log('拉取线上聊天', data);
+		// 			},
+		// 			onError: err => {
+		// 				console.error('the watch closed because of error', err);
+		// 			}
+		// 		});
+		// },
+		// async downlaodChat(chatsArr) {
+		// 	await wx.cloud
+		// 		.callFunction({
+		// 			name: 'getChatData',
+		// 			data: {
+		// 				list:chatsArr
+		// 			}
+		// 		})
+		// 		.then(async res => {
+		// 			const data = res.result.data;
+		// 			console.log('拉取线上聊天', data);
 		
-					// 存入本地缓存
-					for (let item of data) {
-						const oldData = uni.getStorageSync(item._id) || [];
-						await uni.setStorageSync(item._id, oldData.concat(item.dialoge))
-						this.commitLast(item)
-					}
-				})
-		}
+		// 			// 存入本地缓存
+		// 			for (let item of data) {
+		// 				const oldData = uni.getStorageSync(item._id) || [];
+		// 				await uni.setStorageSync(item._id, oldData.concat(item.dialoge))
+		// 				this.commitLast(item)
+		// 			}
+		// 		})
+		// }
 	},
 	onLoad() {}
 };

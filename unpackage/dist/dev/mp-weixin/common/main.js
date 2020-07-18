@@ -102,7 +102,8 @@ var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(
 {
   data: function data() {
     return {
-      flag: true };
+      flag: true,
+      commitData: {} };
 
   },
   computed: _objectSpread({},
@@ -128,6 +129,7 @@ var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(
 
 
                               console.log('数据库中存在该用户');_context.next = 8;return (
+
                                 _this.login(data));case 8:
                               uni.hideLoading();
                               uni.showToast({
@@ -140,8 +142,8 @@ var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(
 
     },
     watchMsg: function watchMsg(code) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var db, catchLast;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
-                db = wx.cloud.database();_context4.next = 3;return (
-
+                db = wx.cloud.database();
+                catchLast = [];_context4.next = 4;return (
                   db.
                   collection('message').
                   orderBy('date', 'desc').
@@ -149,47 +151,54 @@ var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(
                     user: _this2.userInfo._openid }).
 
                   watch({
-                    onChange: function () {var _onChange = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(snapshot) {var data, commitdData, flag1, flag2, arr, _iterator, _step, i, chatid, last, obj;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
-                                uni.hideTabBarRedDot({
-                                  index: 2 });if (!(
+                    onChange: function () {var _onChange = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(snapshot) {var data, flag1, flag2, arr, _iterator, _step, i, localCatch, last;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+                                console.log(snapshot);if (!(
 
                                 _this2.flag === false)) {_context3.next = 3;break;}return _context3.abrupt("return");case 3: // flag
 
                                 data = snapshot.docs[0];
-                                commitdData = Object.assign({}, data);
-                                console.log('App watchMsg');
-                                console.log(data);_context3.next = 9;return (
-                                  _this2.commitMsg(commitdData));case 9:
+                                _this2.commitData = Object.assign({}, data);
 
-                                // 显示小红点
+                                // 小红点
+
                                 flag1 = data.request.length; //好友请求？
                                 flag2 = false; // 新消息？
 
                                 arr = [];if (!
 
-                                data.chats.length) {_context3.next = 43;break;}_iterator = _createForOfIteratorHelper(
-                                data.chats);_context3.prev = 14;_iterator.s();case 16:if ((_step = _iterator.n()).done) {_context3.next = 35;break;}i = _step.value;if (!(
-                                i.isNew === true)) {_context3.next = 22;break;}
+                                _this2.commitData.chats.length) {_context3.next = 43;break;}_iterator = _createForOfIteratorHelper(
+                                _this2.commitData.chats);_context3.prev = 10;_iterator.s();case 12:if ((_step = _iterator.n()).done) {_context3.next = 35;break;}i = _step.value;if (!(
+                                i.isNew === true)) {_context3.next = 19;break;}
                                 // 下载会话
                                 // i.chatid
-                                arr.push(String(i.chatid));_context3.next = 32;break;case 22:
+                                console.log(i.chatid + '有新信息');
+                                arr.push(i.chatid);_context3.next = 32;break;case 19:
 
-                                chatid = i.chatid;
-                                last = uni.getStorageSync(chatid) || [];
-                                last = last[last.length - 1];if (!(
-                                last === catchLast)) {_context3.next = 27;break;}return _context3.abrupt("return");case 27:
+                                localCatch = uni.getStorageSync(i.chatid);if (
+                                localCatch) {_context3.next = 25;break;}
+                                console.log(i.chatid + '本地无缓存，新建');
+                                uni.setStorageSync(i.chatid, []);_context3.next = 32;break;case 25:
+
+                                last = localCatch[localCatch.length - 1];if (!(
+                                last === catchLast)) {_context3.next = 29;break;}
+                                console.log('重复内容');return _context3.abrupt("return");case 29:
+
+
                                 catchLast = last;
-                                obj = { chatid: chatid, last: last };
-                                console.log('读取local缓存', obj);_context3.next = 32;return (
-                                  _this2.updateLast(obj));case 32:
+
+                                console.log('读取local缓存', last);
+                                // 添加last数据进入commitData
+                                i = Object.assign(i, { last: last });case 32:
+
 
 
                                 if (!i.isRead) {
                                   flag2 = true;
-                                }case 33:_context3.next = 16;break;case 35:_context3.next = 40;break;case 37:_context3.prev = 37;_context3.t0 = _context3["catch"](14);_iterator.e(_context3.t0);case 40:_context3.prev = 40;_iterator.f();return _context3.finish(40);case 43:
+                                }case 33:_context3.next = 12;break;case 35:_context3.next = 40;break;case 37:_context3.prev = 37;_context3.t0 = _context3["catch"](10);_iterator.e(_context3.t0);case 40:_context3.prev = 40;_iterator.f();return _context3.finish(40);case 43:
 
 
-                                if (flag1 || flag2) {
+
+                                if (flag1) {
                                   uni.showTabBarRedDot({
                                     index: 2 });
 
@@ -198,12 +207,17 @@ var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(
                                 // 线上有新内容的
                                 if (!arr.length) {_context3.next = 48;break;}
                                 console.log('检测到new');_context3.next = 48;return (
-                                  _this2.downlaodChat(arr));case 48:case "end":return _context3.stop();}}}, _callee3, null, [[14, 37, 40, 43]]);}));function onChange(_x2) {return _onChange.apply(this, arguments);}return onChange;}(),
+                                  _this2.downlaodChat(arr));case 48:
 
+
+                                console.log('准备提交的数据', _this2.commitData);
+                                // 最后提交数据
+                                // commitData
+                                _this2.commitMsg(_this2.commitData);case 50:case "end":return _context3.stop();}}}, _callee3, null, [[10, 37, 40, 43]]);}));function onChange(_x2) {return _onChange.apply(this, arguments);}return onChange;}(),
 
                     onError: function onError(err) {
                       console.error('the watch closed because of error', err);
-                    } }));case 3:case "end":return _context4.stop();}}}, _callee4);}))();
+                    } }));case 4:case "end":return _context4.stop();}}}, _callee4);}))();
 
     },
     watchUserInfo: function watchUserInfo() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var db;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
@@ -227,33 +241,49 @@ var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(
 
     },
     downlaodChat: function downlaodChat(chatsArr) {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7() {var db, _;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:
+                uni.showTabBarRedDot({
+                  index: 2 });
+
+                // console.log('this.commitData',this.commitData)
                 db = wx.cloud.database();
                 _ = db.command;
                 // 拉取未读的聊天
                 // 拉取之后删除
                 // 清除isNew新消息标示
-                _context7.next = 4;return wx.cloud.
+                _context7.next = 5;return wx.cloud.
                 callFunction({
                   name: 'getChatData',
                   data: {
                     list: chatsArr } }).
 
 
-                then( /*#__PURE__*/function () {var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6(res) {var data, _iterator2, _step2, item, last, obj;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
+                then( /*#__PURE__*/function () {var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6(res) {var data, _iterator2, _step2, item, localCatch, obj, _iterator3, _step3, k;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
                             data = res.result.data;
-                            console.log('拉取线上聊天', data);_iterator2 = _createForOfIteratorHelper(
+                            console.log('下载线上聊天', data);_iterator2 = _createForOfIteratorHelper(
 
                             data);try {for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {item = _step2.value;
-                                last = uni.getStorageSync(item._id);
-                                last = last[last.length - 1];
-                                obj = { chatid: item._id, last: last };
-                                _this4.updateLast(obj);
+                                // 并入本地缓存
+                                localCatch = uni.getStorageSync(item._id);
+                                if (!localCatch.length) {
+                                  localCatch = [];
+                                }
+                                uni.setStorageSync(item._id, localCatch.concat(item.dialoge));
+                                obj = { chatid: item._id, last: item.dialoge };
+
+                                // commitData中加入last
+                                _iterator3 = _createForOfIteratorHelper(
+                                _this4.commitData.chats);try {for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {k = _step3.value;
+                                    if (k.chatid === item._id) {
+                                      k = Object.assign(k, { last: item.dialoge });
+                                    }
+                                  }} catch (err) {_iterator3.e(err);} finally {_iterator3.f();}
                               }} catch (err) {_iterator2.e(err);} finally {_iterator2.f();}case 4:case "end":return _context6.stop();}}}, _callee6);}));return function (_x3) {return _ref2.apply(this, arguments);};}()).
 
                 then(function () {
                   // 清除isNew
                   _this4.clearIsNew(chatsArr);
-                });case 4:case "end":return _context7.stop();}}}, _callee7);}))();
+                });case 5:
+                console.log('dowmloadChat执行结束');case 6:case "end":return _context7.stop();}}}, _callee7);}))();
     },
     clearIsNew: function clearIsNew(list) {var _this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8() {return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:
                 _this5.flag = false;

@@ -52,12 +52,15 @@ export default {
 				duration: 0
 			});
 		},
-		send() {
+		async send() {
+			console.log('开启roomwatch')
+			await this.watchCurrentChat()
+			
 			// 发送消息的逻辑
 			let msg = this.message;
 			let chatid = this.chatid;
 			let target = this.targetInfo._openid;
-			wx.cloud
+			await wx.cloud
 				.callFunction({
 					name: 'sendMsg',
 					data: {
@@ -66,33 +69,29 @@ export default {
 						target
 					}
 				})
-				.then(res => {
+				.then(async res => {
 					console.log(`发送${msg}给${target}`, res.result);
 					this.message = '';
+					console.log('关闭roomwatch')
+					await this.watcher.close()
 				});
 		},
-		watchCurrentChat() {
+		async watchCurrentChat() {
 			// watch当前聊天
-			db.collection('chats')
+			this.watcher = await db.collection('chats')
 				.doc(this.chatid)
 				.watch({
 					onChange: snapshot => {
+						console.log(snapshot)
 						// 回避初始化
-						if (snapshot.docChanges[0].dataType === 'init') {
-							console.log('init');
-							return;
-						}
-
-						// TODO
-						// 手动执行更新页面，缓存添加，修改last // done
+						// 弃用
+						// if (snapshot.docChanges[0].dataType === 'init') {
+						// 	console.log('init');
+						// 	return;
+						// }
 						
-						// TODO
-						// 判断自己发消息引起的watch变化
-						// 还是对方发消息引起的watch变化！！
-						
-
+						if(!snapshot.docs.length) return 
 						let newDialoge = snapshot.docs[0].dialoge;
-						if(!newDialoge.length) return
 						
 						newDialoge = newDialoge[newDialoge.length - 1];
 						
@@ -101,13 +100,17 @@ export default {
 						console.log('newDialoge',newDialoge);
 						// 页面
 						this.dialoge = this.dialoge.concat(newDialoge);
-						this.scroll();
+						// 滚动到底部
+						this.$nextTick(()=>{
+							this.scroll()
+						})
 						// 缓存
-						let oldCatch = uni.getStorageSync(this.chatid) || [];
+						const oldCatch = uni.getStorageSync(this.chatid)
+						console.log('oldCatch',oldCatch)
 						uni.setStorageSync(this.chatid, oldCatch.concat(newDialoge));
 						// last
-						console.log({ chatid: this.chatid, last: newDialoge })
 						this.updateLast({ chatid: this.chatid, last: newDialoge });
+						
 					},
 					onError: err => {
 						console.error('the watch closed because of error', err);
@@ -117,12 +120,14 @@ export default {
 	},
 	async onLoad(options) {
 		console.log('进入聊天--->', options);
+		
 		this.chatid = options.chatid;
 		this.dialoge = uni.getStorageSync(options.chatid);
 
 		// targetInfo
 		const friendData = uni.getStorageSync('friendListData');
 		for (let item of friendData) {
+			
 			if (item._openid === options.openid) {
 				this.targetInfo = item;
 			}
@@ -137,7 +142,6 @@ export default {
 			this.scroll();
 		});
 		this.isRead(this.chatid);
-		this.watchCurrentChat();
 	}
 };
 </script>

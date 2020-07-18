@@ -163,7 +163,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _createForOfIteratorHelper(o) {if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var it,normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 var db = wx.cloud.database();var _default =
 {
   data: function data() {
@@ -203,11 +203,12 @@ var db = wx.cloud.database();var _default =
                                 then( /*#__PURE__*/function () {var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(res) {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                                             _this.login(res.result.data);
                                             // !!!
-                                            _this.watchMsg();
+                                            // TODO
+                                            // this.watchMsg();
                                             wx.setNavigationBarTitle({
                                               title: res.result.data.nickName + '的主页' });
 
-                                            uni.hideLoading();case 4:case "end":return _context.stop();}}}, _callee);}));return function (_x2) {return _ref2.apply(this, arguments);};}()));case 3:case "end":return _context2.stop();}}}, _callee2);}));return function (_x) {return _ref.apply(this, arguments);};}()));case 2:case "end":return _context3.stop();}}}, _callee3);}))();
+                                            uni.hideLoading();case 3:case "end":return _context.stop();}}}, _callee);}));return function (_x2) {return _ref2.apply(this, arguments);};}()));case 3:case "end":return _context2.stop();}}}, _callee2);}));return function (_x) {return _ref.apply(this, arguments);};}()));case 2:case "end":return _context3.stop();}}}, _callee3);}))();
 
 
     },
@@ -291,78 +292,78 @@ var db = wx.cloud.database();var _default =
           icon: 'none' });
 
       });
-    },
-    watchMsg: function watchMsg() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.next = 2;return (
-                  db.
-                  collection('message').
-                  orderBy('date', 'desc').
-                  where({
-                    user: _this3.userInfo._openid }).
+    }
+    // async watchMsg() {
+    // 	await db
+    // 		.collection('message')
+    // 		.orderBy('date', 'desc')
+    // 		.where({
+    // 			user: this.userInfo._openid
+    // 		})
+    // 		.watch({
+    // 			onChange: snapshot => {
+    // 				const data = snapshot.docs[0];
+    // 				if (snapshot.docChanges[0].dataType === 'init') return; // 避开初始化
+    // 				console.log('watch到msg');
+    // 				console.log(data);
+    // 				this.commitMsg(data);
 
-                  watch({
-                    onChange: function onChange(snapshot) {
-                      var data = snapshot.docs[0];
-                      if (snapshot.docChanges[0].dataType === 'init') return; // 避开初始化
-                      console.log('watch到msg');
-                      console.log(data);
-                      _this3.commitMsg(data);
+    // 				let flag1 = data.request.length; //有无请求
+    // 				let flag2 = false; // 有无新消息
+    // 				let arr = []
+    // 				if (data.chats) {
+    // 					for (let i of data.chats) {
+    // 						if (i.isNew) {
+    // 							flag2 = true;
+    // 							arr.push(i.chatid)
+    // 							// 检测到isNew
+    // 							// 获取chatid拉取聊天到本地缓存
+    // 						}
+    // 					}
+    // 				}
+    // 				if(flag2){
+    // 					this.downlaodChat(arr)
+    // 				}
+    // 				if (flag1 || flag2) {
+    // 					uni.showTabBarRedDot({
+    // 						index: 2
+    // 					});
+    // 				}
 
-                      var flag1 = data.request.length; //有无请求
-                      var flag2 = false; // 有无新消息
-                      var arr = [];
-                      if (data.chats) {var _iterator = _createForOfIteratorHelper(
-                        data.chats),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var i = _step.value;
-                            if (i.isNew) {
-                              flag2 = true;
-                              arr.push(i.chatid);
-                              // 检测到isNew
-                              // 获取chatid拉取聊天到本地缓存
-                            }
-                          }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
-                      }
-                      if (flag2) {
-                        _this3.downlaodChat(arr);
-                      }
-                      if (flag1 || flag2) {
-                        uni.showTabBarRedDot({
-                          index: 2 });
-
-                      }
-
-                      if (!flag1 && !flag2) {
-                        uni.hideTabBarRedDot({
-                          index: 2 });
-
-                      }
-
-
-                    },
-                    onError: function onError(err) {
-                      console.error('the watch closed because of error', err);
-                    } }));case 2:case "end":return _context4.stop();}}}, _callee4);}))();
-
-    },
-    downlaodChat: function downlaodChat(chatsArr) {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:_context6.next = 2;return (
-                  wx.cloud.
-                  callFunction({
-                    name: 'getChatData',
-                    data: {
-                      list: chatsArr } }).
+    // 				if (!flag1 && !flag2) {
+    // 					uni.hideTabBarRedDot({
+    // 						index: 2
+    // 					});
+    // 				}
 
 
-                  then( /*#__PURE__*/function () {var _ref3 = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5(res) {var data, _iterator2, _step2, item, oldData;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
-                              data = res.result.data;
-                              console.log('拉取线上聊天', data);
+    // 			},
+    // 			onError: err => {
+    // 				console.error('the watch closed because of error', err);
+    // 			}
+    // 		});
+    // },
+    // async downlaodChat(chatsArr) {
+    // 	await wx.cloud
+    // 		.callFunction({
+    // 			name: 'getChatData',
+    // 			data: {
+    // 				list:chatsArr
+    // 			}
+    // 		})
+    // 		.then(async res => {
+    // 			const data = res.result.data;
+    // 			console.log('拉取线上聊天', data);
 
-                              // 存入本地缓存
-                              _iterator2 = _createForOfIteratorHelper(data);_context5.prev = 3;_iterator2.s();case 5:if ((_step2 = _iterator2.n()).done) {_context5.next = 13;break;}item = _step2.value;
-                              oldData = uni.getStorageSync(item._id) || [];_context5.next = 10;return (
-                                uni.setStorageSync(item._id, oldData.concat(item.dialoge)));case 10:
-                              _this4.commitLast(item);case 11:_context5.next = 5;break;case 13:_context5.next = 18;break;case 15:_context5.prev = 15;_context5.t0 = _context5["catch"](3);_iterator2.e(_context5.t0);case 18:_context5.prev = 18;_iterator2.f();return _context5.finish(18);case 21:case "end":return _context5.stop();}}}, _callee5, null, [[3, 15, 18, 21]]);}));return function (_x3) {return _ref3.apply(this, arguments);};}()));case 2:case "end":return _context6.stop();}}}, _callee6);}))();
-
-
-    } }),
-
+    // 			// 存入本地缓存
+    // 			for (let item of data) {
+    // 				const oldData = uni.getStorageSync(item._id) || [];
+    // 				await uni.setStorageSync(item._id, oldData.concat(item.dialoge))
+    // 				this.commitLast(item)
+    // 			}
+    // 		})
+    // }
+  }),
   onLoad: function onLoad() {} };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

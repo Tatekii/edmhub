@@ -3477,23 +3477,21 @@ var store = new _vuex.default.Store({
     },
     commitMsg: function commitMsg(state, payload) {
       console.log('commitMsg');
-      state.request = payload.request;
-      state.chats = payload.chats;
+      // state.request = payload.request
+      _vue.default.set(state, 'request', payload.request);
+      // state.chats = payload.chats
+      _vue.default.set(state, 'chats', payload.chats);
     },
     updateLast: function updateLast(state, payload) {
       console.log('updateLast');
-      var id = payload.chatid;
-      var last = payload.last;
-      // for(let item of state.chats){
-      // 	if(item.chatid===id){
-      // 		item = Object.assign(item,{last})
-      // 	}
-      // }
-      // console.log(state.chats)
-
-
+      console.log(payload);
       // 牛逼
       _vue.default.set(state.chats.find(function (item) {return item.chatid === payload.chatid;}), 'last', payload.last);
+      // for(let item of state.chats){
+      // 	if(item.chatid===payload.chatid){
+      // 		item = Object.assign(item,payload.dialoge)
+      // 	}
+      // }
     } },
 
   getters: {},

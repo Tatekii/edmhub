@@ -22,23 +22,21 @@ const store = new Vuex.Store({
 		},
 		commitMsg(state, payload) {
 			console.log('commitMsg')
-			state.request = payload.request
-			state.chats = payload.chats
+			// state.request = payload.request
+			Vue.set(state,'request',payload.request)
+			// state.chats = payload.chats
+			Vue.set(state,'chats',payload.chats)
 		},
 		updateLast(state,payload){
 			console.log('updateLast')
-			let id = payload.chatid
-			let last = payload.last
-			// for(let item of state.chats){
-			// 	if(item.chatid===id){
-			// 		item = Object.assign(item,{last})
-			// 	}
-			// }
-			// console.log(state.chats)
-			
-			
+			console.log(payload)
 			// 牛逼
 			Vue.set(state.chats.find(item => item.chatid === payload.chatid), 'last', payload.last)
+			// for(let item of state.chats){
+			// 	if(item.chatid===payload.chatid){
+			// 		item = Object.assign(item,payload.dialoge)
+			// 	}
+			// }
 		}
 	},
 	getters: {

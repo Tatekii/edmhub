@@ -14,12 +14,14 @@
 		</view>
 
 		<view class="list">
-			<view class="reqList" v-if="showList === 'req'"><reqList :list="request"></reqList></view>
+			<view class="reqList" v-if="showList === 'req' && request.length"><reqList :list="request"></reqList></view>
 
-			<view class="friendList" v-if="showList === 'fri'"><friendList :list="friendData" v-on:intoChatRoom="intoChatRoom"></friendList></view>
+			<view class="friendList" v-if="showList === 'fri' && userInfo.friend.length"><friendList :list="friendData" v-on:intoChatRoom="intoChatRoom"></friendList></view>
 		</view>
 		
-		<view class="chatList" :class="showList ? 'fade' : ''"><chatList :chats="chats" v-on:intoChatRoom="intoChatRoom"></chatList></view>
+		<view class="chatList" :class="showList ? 'fade' : ''">
+			<chatList :chats="chats" v-on:intoChatRoom="intoChatRoom"></chatList>
+		</view>
 	</view>
 </template>
 
@@ -51,12 +53,20 @@ export default {
 		},
 		chatLength() {
 			return this.chats.length;
+		},
+		requestLength() {
+			return this.request.length
 		}
 	},
 	watch: {
 		chatLength() {
 			console.log('聊天组改变');
 			this.updateFriendList();
+		},
+		requestLength(len) {
+			if(len>0){
+				this.showList='req'
+			}
 		}
 	},
 	methods: {
@@ -174,6 +184,7 @@ export default {
 		// }
 
 		this.friendData = uni.getStorageSync('friendListData');
+		this.updateFriendList()
 		// this.updateLast()
 		// console.log(getApp().globalData.updateList)
 	},

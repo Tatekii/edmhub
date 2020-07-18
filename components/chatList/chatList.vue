@@ -7,7 +7,7 @@
 						<view :class="item.isRead === false ? 'badge' : ''"></view>
 						<view class="avatar"><image :src="item.avatarUrl" mode="aspectFit" class="img"></image></view>
 						<view class="nickName">{{ item.nickName }}</view>
-						<view class="lastWords">{{ getLastWords(item.last) }}</view>
+							<view class="lastWords">{{ getLastWords(item.last) }}</view>
 					</view>
 				</uni-swipe-action-item>
 			</uni-swipe-action>
@@ -42,6 +42,9 @@ export default {
 			this.$emit('intoChatRoom', { chatid });
 		},
 		getLastWords(data) {
+			if(!data){
+				return '无新消息'
+			}
 			return '[' + this.$tools.comparDate(data.date) + '前]' + data.content;
 			//格式化
 		}
