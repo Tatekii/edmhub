@@ -190,7 +190,7 @@ var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(
 //
 //
 //
-var db = wx.cloud.database();var _default = { data: function data() {return { dialoge: [], targetInfo: [], message: '', chatid: '' };}, computed: _objectSpread({}, (0, _vuex.mapState)(['userInfo', 'chats'])), methods: _objectSpread({}, (0, _vuex.mapMutations)(['updateLast']), { isRead: function isRead(chatid) {// 清除未读标签
+var db = wx.cloud.database();var _default = { data: function data() {return { dialoge: [], targetInfo: [], message: '', options: {} };}, computed: _objectSpread({}, (0, _vuex.mapState)(['userInfo', 'chats'])), methods: _objectSpread({}, (0, _vuex.mapMutations)(['updateLast']), { isRead: function isRead(chatid) {// 清除未读标签
       wx.cloud.callFunction({ name: 'isRead',
         data: {
           chatid: chatid } }).
@@ -207,13 +207,10 @@ var db = wx.cloud.database();var _default = { data: function data() {return { di
 
     },
     send: function send() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var msg, chatid, target;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                console.log('开启roomwatch');_context2.next = 3;return (
-                  _this.watchCurrentChat());case 3:
-
                 // 发送消息的逻辑
                 msg = _this.message;
-                chatid = _this.chatid;
-                target = _this.targetInfo._openid;_context2.next = 8;return (
+                chatid = _this.options.chatid;
+                target = _this.targetInfo._openid;_context2.next = 5;return (
                   wx.cloud.
                   callFunction({
                     name: 'sendMsg',
@@ -225,63 +222,62 @@ var db = wx.cloud.database();var _default = { data: function data() {return { di
 
                   then( /*#__PURE__*/function () {var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(res) {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                               console.log("\u53D1\u9001".concat(msg, "\u7ED9").concat(target), res.result);
-                              _this.message = '';
-                              console.log('关闭roomwatch');_context.next = 5;return (
-                                _this.watcher.close());case 5:case "end":return _context.stop();}}}, _callee);}));return function (_x) {return _ref.apply(this, arguments);};}()));case 8:case "end":return _context2.stop();}}}, _callee2);}))();
+                              _this.message = '';case 2:case "end":return _context.stop();}}}, _callee);}));return function (_x) {return _ref.apply(this, arguments);};}()));case 5:case "end":return _context2.stop();}}}, _callee2);}))();
 
     },
     watchCurrentChat: function watchCurrentChat() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
 
-                  db.collection('chats').
-                  doc(_this2.chatid).
+
+
+
+                  db.
+                  collection('chats').
+                  doc(_this2.options.chatid).
                   watch({
                     onChange: function onChange(snapshot) {
-                      console.log(snapshot);
-                      // 回避初始化
-                      // 弃用
-                      // if (snapshot.docChanges[0].dataType === 'init') {
-                      // 	console.log('init');
-                      // 	return;
-                      // }
+                      var route = getCurrentPages();
+                      var curPage = route[route.length - 1];
+                      if (curPage.options.chatid != _this2.options.chatid || curPage.route != 'pages/chatroom/chatroom') {
+                        console.log('不在chatroom内return ');
+                        return;
+                      }
 
-                      if (!snapshot.docs.length) return;
                       var newDialoge = snapshot.docs[0].dialoge;
-
+                      if (snapshot.docChanges[0].dataType === 'init') {
+                        console.log('init');
+                        return;
+                      }
+                      if (!newDialoge || !newDialoge.length) return;
                       newDialoge = newDialoge[newDialoge.length - 1];
 
-                      // if(newDialoge.speaker!==this.userInfo._openid) return 
-
-                      console.log('newDialoge', newDialoge);
                       // 页面
                       _this2.dialoge = _this2.dialoge.concat(newDialoge);
+
                       // 滚动到底部
                       _this2.$nextTick(function () {
                         _this2.scroll();
                       });
                       // 缓存
-                      var oldCatch = uni.getStorageSync(_this2.chatid);
-                      console.log('oldCatch', oldCatch);
-                      uni.setStorageSync(_this2.chatid, oldCatch.concat(newDialoge));
-                      // last
-                      _this2.updateLast({ chatid: _this2.chatid, last: newDialoge });
+                      var oldCatch = uni.getStorageSync(_this2.options.chatid);
+                      uni.setStorageSync(_this2.options.chatid, oldCatch.concat(newDialoge));
 
+                      // last
+                      _this2.updateLast({ chatid: _this2.options.chatid, last: newDialoge });
                     },
                     onError: function onError(err) {
                       console.error('the watch closed because of error', err);
-                    } }));case 2:_this2.watcher = _context3.sent;case 3:case "end":return _context3.stop();}}}, _callee3);}))();
+                    } }));case 2:_this2.chatRoomWatcher = _context3.sent;case 3:case "end":return _context3.stop();}}}, _callee3);}))();
 
     } }),
 
   onLoad: function onLoad(options) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var friendData, _iterator, _step, item;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
               console.log('进入聊天--->', options);
-
-              _this3.chatid = options.chatid;
+              _this3.options = options;
               _this3.dialoge = uni.getStorageSync(options.chatid);
 
               // targetInfo
               friendData = uni.getStorageSync('friendListData');_iterator = _createForOfIteratorHelper(
               friendData);try {for (_iterator.s(); !(_step = _iterator.n()).done;) {item = _step.value;
-
                   if (item._openid === options.openid) {
                     _this3.targetInfo = item;
                   }
@@ -295,7 +291,12 @@ var db = wx.cloud.database();var _default = { data: function data() {return { di
                 // scrollToBottom
                 _this3.scroll();
               });
-              _this3.isRead(_this3.chatid);case 9:case "end":return _context4.stop();}}}, _callee4);}))();
+              _this3.isRead(options.chatid);
+              _this3.watchCurrentChat();
+              console.log(_this3);case 11:case "end":return _context4.stop();}}}, _callee4);}))();
+  },
+  onUnload: function onUnload() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:_context5.next = 2;return (
+                _this4.chatRoomWatcher.close());case 2:case "end":return _context5.stop();}}}, _callee5);}))();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

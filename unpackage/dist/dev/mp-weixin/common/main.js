@@ -151,10 +151,8 @@ var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(
                     user: _this2.userInfo._openid }).
 
                   watch({
-                    onChange: function () {var _onChange = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(snapshot) {var data, flag1, flag2, arr, _iterator, _step, i, localCatch, last;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
-                                console.log(snapshot);if (!(
-
-                                _this2.flag === false)) {_context3.next = 3;break;}return _context3.abrupt("return");case 3: // flag
+                    onChange: function () {var _onChange = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(snapshot) {var data, flag1, flag2, arr, _iterator, _step, i, localCatch, last;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:if (!(
+                                _this2.flag === false)) {_context3.next = 2;break;}return _context3.abrupt("return");case 2: // flag
 
                                 data = snapshot.docs[0];
                                 _this2.commitData = Object.assign({}, data);
@@ -166,35 +164,35 @@ var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(
 
                                 arr = [];if (!
 
-                                _this2.commitData.chats.length) {_context3.next = 43;break;}_iterator = _createForOfIteratorHelper(
-                                _this2.commitData.chats);_context3.prev = 10;_iterator.s();case 12:if ((_step = _iterator.n()).done) {_context3.next = 35;break;}i = _step.value;if (!(
-                                i.isNew === true)) {_context3.next = 19;break;}
+                                _this2.commitData.chats.length) {_context3.next = 42;break;}_iterator = _createForOfIteratorHelper(
+                                _this2.commitData.chats);_context3.prev = 9;_iterator.s();case 11:if ((_step = _iterator.n()).done) {_context3.next = 34;break;}i = _step.value;if (!(
+                                i.isNew === true)) {_context3.next = 18;break;}
                                 // 下载会话
                                 // i.chatid
                                 console.log(i.chatid + '有新信息');
-                                arr.push(i.chatid);_context3.next = 32;break;case 19:
+                                arr.push(i.chatid);_context3.next = 31;break;case 18:
 
                                 localCatch = uni.getStorageSync(i.chatid);if (
-                                localCatch) {_context3.next = 25;break;}
+                                localCatch) {_context3.next = 24;break;}
                                 console.log(i.chatid + '本地无缓存，新建');
-                                uni.setStorageSync(i.chatid, []);_context3.next = 32;break;case 25:
+                                uni.setStorageSync(i.chatid, []);_context3.next = 31;break;case 24:
 
                                 last = localCatch[localCatch.length - 1];if (!(
-                                last === catchLast)) {_context3.next = 29;break;}
-                                console.log('重复内容');return _context3.abrupt("return");case 29:
+                                last === catchLast)) {_context3.next = 28;break;}
+                                console.log('重复内容');return _context3.abrupt("return");case 28:
 
 
                                 catchLast = last;
 
                                 console.log('读取local缓存', last);
                                 // 添加last数据进入commitData
-                                i = Object.assign(i, { last: last });case 32:
+                                i = Object.assign(i, { last: last });case 31:
 
 
 
                                 if (!i.isRead) {
                                   flag2 = true;
-                                }case 33:_context3.next = 12;break;case 35:_context3.next = 40;break;case 37:_context3.prev = 37;_context3.t0 = _context3["catch"](10);_iterator.e(_context3.t0);case 40:_context3.prev = 40;_iterator.f();return _context3.finish(40);case 43:
+                                }case 32:_context3.next = 11;break;case 34:_context3.next = 39;break;case 36:_context3.prev = 36;_context3.t0 = _context3["catch"](9);_iterator.e(_context3.t0);case 39:_context3.prev = 39;_iterator.f();return _context3.finish(39);case 42:
 
 
 
@@ -205,15 +203,15 @@ var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(
                                 }
 
                                 // 线上有新内容的
-                                if (!arr.length) {_context3.next = 48;break;}
-                                console.log('检测到new');_context3.next = 48;return (
-                                  _this2.downlaodChat(arr));case 48:
+                                if (!arr.length) {_context3.next = 47;break;}
+                                console.log('检测到new');_context3.next = 47;return (
+                                  _this2.downlaodChat(arr));case 47:
 
 
                                 console.log('准备提交的数据', _this2.commitData);
                                 // 最后提交数据
                                 // commitData
-                                _this2.commitMsg(_this2.commitData);case 50:case "end":return _context3.stop();}}}, _callee3, null, [[10, 37, 40, 43]]);}));function onChange(_x2) {return _onChange.apply(this, arguments);}return onChange;}(),
+                                _this2.commitMsg(_this2.commitData);case 49:case "end":return _context3.stop();}}}, _callee3, null, [[9, 36, 39, 42]]);}));function onChange(_x2) {return _onChange.apply(this, arguments);}return onChange;}(),
 
                     onError: function onError(err) {
                       console.error('the watch closed because of error', err);
@@ -295,6 +293,7 @@ var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(
 
 
                 then(function (res) {
+
                   console.log('clearIsNew');
                   // 重新启动监听
                   _this5.flag = true;
