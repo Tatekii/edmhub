@@ -25,7 +25,7 @@ export default {
 			dialoge: [],
 			targetInfo: [],
 			message: '',
-			chatid: ''
+			options:{}
 		};
 	},
 	computed: {
@@ -53,12 +53,9 @@ export default {
 			});
 		},
 		async send() {
-			console.log('开启roomwatch')
-			await this.watchCurrentChat()
-			
 			// 发送消息的逻辑
 			let msg = this.message;
-			let chatid = this.chatid;
+			let chatid = this.options.chatid;
 			let target = this.targetInfo._openid;
 			await wx.cloud
 				.callFunction({
@@ -72,45 +69,46 @@ export default {
 				.then(async res => {
 					console.log(`发送${msg}给${target}`, res.result);
 					this.message = '';
-					console.log('关闭roomwatch')
-					await this.watcher.close()
 				});
 		},
 		async watchCurrentChat() {
 			// watch当前聊天
-			this.watcher = await db.collection('chats')
-				.doc(this.chatid)
+			// 判断页面path 是否是 chatroom
+			// 将watch return
+
+			this.chatRoomWatcher = await db
+				.collection('chats')
+				.doc(this.options.chatid)
 				.watch({
-					onChange: snapshot => {
-						console.log(snapshot)
-						// 回避初始化
-						// 弃用
-						// if (snapshot.docChanges[0].dataType === 'init') {
-						// 	console.log('init');
-						// 	return;
-						// }
+					onChange: snapshot => {						
+						let route = getCurrentPages()
+						let curPage = route[route.length-1]
+						if(curPage.options.chatid!=this.options.chatid || curPage.route!='pages/chatroom/chatroom'){
+							console.log('不在chatroom内return ')
+							return
+						}
 						
-						if(!snapshot.docs.length) return 
 						let newDialoge = snapshot.docs[0].dialoge;
-						
+						if(snapshot.docChanges[0].dataType==='init'){
+							console.log('init')
+							return
+						}
+						if (!newDialoge || !newDialoge.length) return;
 						newDialoge = newDialoge[newDialoge.length - 1];
-						
-						// if(newDialoge.speaker!==this.userInfo._openid) return 
-						
-						console.log('newDialoge',newDialoge);
+
 						// 页面
 						this.dialoge = this.dialoge.concat(newDialoge);
+
 						// 滚动到底部
-						this.$nextTick(()=>{
-							this.scroll()
-						})
+						this.$nextTick(() => {
+							this.scroll();
+						});
 						// 缓存
-						const oldCatch = uni.getStorageSync(this.chatid)
-						console.log('oldCatch',oldCatch)
-						uni.setStorageSync(this.chatid, oldCatch.concat(newDialoge));
-						// last
-						this.updateLast({ chatid: this.chatid, last: newDialoge });
+						const oldCatch = uni.getStorageSync(this.options.chatid);
+						uni.setStorageSync(this.options.chatid, oldCatch.concat(newDialoge));
 						
+						// last
+						this.updateLast({ chatid: this.options.chatid, last: newDialoge });
 					},
 					onError: err => {
 						console.error('the watch closed because of error', err);
@@ -120,14 +118,12 @@ export default {
 	},
 	async onLoad(options) {
 		console.log('进入聊天--->', options);
-		
-		this.chatid = options.chatid;
+		this.options = options
 		this.dialoge = uni.getStorageSync(options.chatid);
 
 		// targetInfo
 		const friendData = uni.getStorageSync('friendListData');
 		for (let item of friendData) {
-			
 			if (item._openid === options.openid) {
 				this.targetInfo = item;
 			}
@@ -141,7 +137,12 @@ export default {
 			// scrollToBottom
 			this.scroll();
 		});
-		this.isRead(this.chatid);
+		this.isRead(options.chatid);
+		this.watchCurrentChat()
+		console.log(this)
+	},
+	async onUnload(){
+		await this.chatRoomWatcher.close()
 	}
 };
 </script>

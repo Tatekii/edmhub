@@ -1,5 +1,6 @@
 <template>
 	<view class="container">
+		<!-- 返回顶部 -->
 		<view v-show="showButton"><scrollToTop @tap="scrollTop"></scrollToTop></view>
 
 		<view class="title">
@@ -195,6 +196,12 @@ export default {
 		} else {
 			this.showButton = false;
 		}
+	},
+	onHide() {
+		console.log('onhide')
+	},
+	onShow(){
+		console.log('onshow')
 	}
 };
 </script>

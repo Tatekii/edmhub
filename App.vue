@@ -52,9 +52,7 @@ export default {
 					user: this.userInfo._openid
 				})
 				.watch({
-					onChange: async snapshot => {
-						console.log(snapshot);
-
+					onChange: async snapshot => {						
 						if (this.flag === false) return; // flag
 
 						let data = snapshot.docs[0];
@@ -196,6 +194,7 @@ export default {
 					}
 				})
 				.then(res => {
+					
 					console.log('clearIsNew');
 					// 重新启动监听
 					this.flag = true;
