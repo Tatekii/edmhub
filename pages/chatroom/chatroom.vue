@@ -5,7 +5,9 @@
 				<view v-if="item.speaker === userInfo._openid">
 					<wordsbox :avatar="userInfo.avatarUrl" layout="se" :content="item.content" :date="$tools.formatTime(item.date)"></wordsbox>
 				</view>
-				<view v-else><wordsbox :avatar="targetInfo.avatarUrl" layout="tar" :content="item.content" :date="$tools.formatTime(item.date)"></wordsbox></view>
+				<view v-else>
+					<wordsbox :avatar="targetInfo.avatarUrl" layout="tar" :content="item.content" :date="$tools.formatTime(item.date)"></wordsbox>
+				</view>
 			</view>
 		</view>
 		<view class="input">
@@ -32,7 +34,7 @@ export default {
 		...mapState(['userInfo', 'chats'])
 	},
 	methods: {
-		...mapMutations(['updateLast']),
+		...mapMutations(['updateNow']),
 		isRead(chatid) {
 			// 清除未读标签
 			wx.cloud
@@ -53,7 +55,6 @@ export default {
 			});
 		},
 		async send() {
-			// 发送消息的逻辑
 			let msg = this.message;
 			let chatid = this.options.chatid;
 			let target = this.targetInfo._openid;
@@ -69,25 +70,15 @@ export default {
 				.then(async res => {
 					console.log(`发送${msg}给${target}`, res.result);
 					this.message = '';
+					flag = true
 				});
 		},
 		async watchCurrentChat() {
-			// watch当前聊天
-			// 判断页面path 是否是 chatroom
-			// 将watch return
-
 			this.chatRoomWatcher = await db
 				.collection('chats')
 				.doc(this.options.chatid)
 				.watch({
-					onChange: snapshot => {						
-						let route = getCurrentPages()
-						let curPage = route[route.length-1]
-						if(curPage.options.chatid!=this.options.chatid || curPage.route!='pages/chatroom/chatroom'){
-							console.log('不在chatroom内return ')
-							return
-						}
-						
+					onChange: snapshot => {												
 						let newDialoge = snapshot.docs[0].dialoge;
 						if(snapshot.docChanges[0].dataType==='init'){
 							console.log('init')
@@ -108,7 +99,8 @@ export default {
 						uni.setStorageSync(this.options.chatid, oldCatch.concat(newDialoge));
 						
 						// last
-						this.updateLast({ chatid: this.options.chatid, last: newDialoge });
+						this.updateNow(true)
+						// this.updateLast({ chatid: this.options.chatid, last: newDialoge });
 					},
 					onError: err => {
 						console.error('the watch closed because of error', err);

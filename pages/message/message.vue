@@ -41,36 +41,47 @@ export default {
 		};
 	},
 	computed: {
-		...mapState(['hasLogin', 'chats', 'request', 'userInfo']),
-		mixChatsWithLocal() {
-			for (let item of this.chats) {
-				let openid = item.with;
-				for (let k of this.friendData) {
-					if (k._openid === openid) {
-						item = Object.assign(item, k);
-					}
-				}
-			}
-		},
+		...mapState(['hasLogin', 'chats', 'request', 'userInfo','changeNow']),
 		chatLength() {
 			return this.chats.length;
 		},
 		requestLength() {
 			return this.request.length
+		},
+		mixFriToList(){
+			for(let item of this.chats){
+				let curUser = this.friendData.find(user=>user._openid===item.with)
+				Object.assign(item,curUser)
+			}
 		}
 	},
 	watch: {
 		chatLength() {
 			console.log('聊天组改变');
 			this.updateFriendList();
+			//
 		},
 		requestLength(len) {
 			if(len>0){
 				this.showList='req'
 			}
+		},
+		changeNow(flag){
+			if(flag===true){
+				//刷新last数据
+				return
+				this.refreshLast()
+			}
 		}
 	},
 	methods: {
+		refreshLast(){
+			for(let item of this.chats){
+				let dialoge = uni.getStorageSync(item.chatid)
+				let last = dialoge[dialoge.length-1]
+				Object.assign(item,{last})
+			}
+		},
 		scrollTop() {
 			uni.pageScrollTo({
 				scrollTop: 0,
@@ -158,31 +169,31 @@ export default {
 		}
 	},
 	onLoad() {
-		// if (!this.hasLogin) {
-		// 	uni.showModal({
-		// 		title: '提示',
-		// 		content: '请先登录',
-		// 		cancelText: '随便看看',
-		// 		confirmText: '前去登陆',
-		// 		success: function(res) {
-		// 			if (res.confirm) {
-		// 				uni.switchTab({
-		// 					url: '../mine/mine',
-		// 					fail(res) {
-		// 						console.log(res);
-		// 					}
-		// 				});
-		// 			} else if (res.cancel) {
-		// 				uni.switchTab({
-		// 					url: '../index/index',
-		// 					fail(res) {
-		// 						console.log(res);
-		// 					}
-		// 				});
-		// 			}
-		// 		}
-		// 	});
-		// }
+		if (!this.hasLogin) {
+			uni.showModal({
+				title: '提示',
+				content: '请先登录',
+				cancelText: '随便看看',
+				confirmText: '前去登陆',
+				success: function(res) {
+					if (res.confirm) {
+						uni.switchTab({
+							url: '../mine/mine',
+							fail(res) {
+								console.log(res);
+							}
+						});
+					} else if (res.cancel) {
+						uni.switchTab({
+							url: '../index/index',
+							fail(res) {
+								console.log(res);
+							}
+						});
+					}
+				}
+			});
+		}
 
 		this.friendData = uni.getStorageSync('friendListData');
 		this.updateFriendList()
@@ -196,12 +207,6 @@ export default {
 		} else {
 			this.showButton = false;
 		}
-	},
-	onHide() {
-		console.log('onhide')
-	},
-	onShow(){
-		console.log('onshow')
 	}
 };
 </script>

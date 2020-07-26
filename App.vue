@@ -11,7 +11,7 @@ export default {
 		...mapState(['userInfo', 'chats'])
 	},
 	methods: {
-		...mapMutations(['login', 'commitMsg', 'update', 'updateLast']),
+		...mapMutations(['login', 'commitMsg', 'update','updateNow']),
 		async autoLogin() {
 			uni.showLoading({
 				mask: true,
@@ -57,7 +57,10 @@ export default {
 
 						let data = snapshot.docs[0];
 						this.commitData = Object.assign({}, data);
-
+						
+						// commitData
+						
+						this.commitMsg(this.commitData);
 						// 小红点
 
 						let flag1 = data.request.length; //好友请求？
@@ -108,11 +111,6 @@ export default {
 							console.log('检测到new');
 							await this.downlaodChat(arr);
 						}
-
-						console.log('准备提交的数据', this.commitData);
-						// 最后提交数据
-						// commitData
-						this.commitMsg(this.commitData);
 					},
 					onError: err => {
 						console.error('the watch closed because of error', err);
@@ -167,15 +165,16 @@ export default {
 							localCatch = [];
 						}
 						uni.setStorageSync(item._id, localCatch.concat(item.dialoge));
-						let obj = { chatid: item._id, last: item.dialoge };
-
+						
+						this.updateNow(true)
+						
 						// commitData中加入last
 
-						for (let k of this.commitData.chats) {
-							if (k.chatid === item._id) {
-								k = Object.assign(k, { last: item.dialoge });
-							}
-						}
+						// for (let k of this.commitData.chats) {
+						// 	if (k.chatid === item._id) {
+						// 		k = Object.assign(k, { last: item.dialoge });
+						// 	}
+						// }
 					}
 				})
 				.then(() => {

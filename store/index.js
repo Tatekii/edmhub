@@ -8,7 +8,8 @@ const store = new Vuex.Store({
 		hasLogin: false,
 		userInfo: {},
 		request: [],
-		chats: []
+		chats: [],
+		changeNow:false
 	},
 	mutations: {
 		login(state, userInfo) {
@@ -25,12 +26,19 @@ const store = new Vuex.Store({
 			state.request = payload.request
 			state.chats = payload.chats
 		},
-		updateLast(state,payload){
-			console.log('updateLast')
-			console.log(payload)
-			// 牛逼
-			Vue.set(state.chats.find(item => item.chatid === payload.chatid), 'last', payload.last)
-			console.log(state.chats)
+		// updateLast(state,payload){
+		// 	console.log('updateLast')
+		// 	console.log(payload)
+		// 	// 牛逼
+		// 	Vue.set(state.chats.find(item => item.chatid === payload.chatid), 'last', payload.last)
+		// 	console.log(state.chats)
+		// },
+		updateNow(state,payload){
+			state.changeNow = payload
+			const timer = setTimeout(()=>{
+				state.changeNow = false
+				timer = null
+			},0)
 		}
 	},
 	getters: {

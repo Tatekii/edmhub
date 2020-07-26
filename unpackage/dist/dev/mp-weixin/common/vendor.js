@@ -3251,9 +3251,9 @@ var index_esm = {
 /***/ }),
 
 /***/ 128:
-/*!******************************************************************!*\
-  !*** /Users/aimi/代码/edmHUB/edmHUB/components/uni-popup/popup.js ***!
-  \******************************************************************/
+/*!****************************************************************!*\
+  !*** /Users/siyn/Desktop/edmHUB/components/uni-popup/popup.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3286,9 +3286,9 @@ var config = {
 /***/ }),
 
 /***/ 129:
-/*!********************************************************************!*\
-  !*** /Users/aimi/代码/edmHUB/edmHUB/components/uni-popup/message.js ***!
-  \********************************************************************/
+/*!******************************************************************!*\
+  !*** /Users/siyn/Desktop/edmHUB/components/uni-popup/message.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3446,15 +3446,15 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 15:
-/*!***************************************************!*\
-  !*** /Users/aimi/代码/edmHUB/edmHUB/store/index.js ***!
-  \***************************************************/
+/*!*************************************************!*\
+  !*** /Users/siyn/Desktop/edmHUB/store/index.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 11));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 11));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _readOnlyError(name) {throw new Error("\"" + name + "\" is read-only");}
 
 _vue.default.use(_vuex.default);
 
@@ -3463,7 +3463,8 @@ var store = new _vuex.default.Store({
     hasLogin: false,
     userInfo: {},
     request: [],
-    chats: [] },
+    chats: [],
+    changeNow: false },
 
   mutations: {
     login: function login(state, userInfo) {
@@ -3480,12 +3481,19 @@ var store = new _vuex.default.Store({
       state.request = payload.request;
       state.chats = payload.chats;
     },
-    updateLast: function updateLast(state, payload) {
-      console.log('updateLast');
-      console.log(payload);
-      // 牛逼
-      _vue.default.set(state.chats.find(function (item) {return item.chatid === payload.chatid;}), 'last', payload.last);
-      console.log(state.chats);
+    // updateLast(state,payload){
+    // 	console.log('updateLast')
+    // 	console.log(payload)
+    // 	// 牛逼
+    // 	Vue.set(state.chats.find(item => item.chatid === payload.chatid), 'last', payload.last)
+    // 	console.log(state.chats)
+    // },
+    updateNow: function updateNow(state, payload) {
+      state.changeNow = payload;
+      var timer = setTimeout(function () {
+        state.changeNow = false;
+        timer = (_readOnlyError("timer"), null);
+      }, 0);
     } },
 
   getters: {},
@@ -3499,9 +3507,9 @@ store;exports.default = _default;
 /***/ }),
 
 /***/ 156:
-/*!******************************************************************************!*\
-  !*** /Users/aimi/代码/edmHUB/edmHUB/components/uni-swipe-action-item/mpwxs.js ***!
-  \******************************************************************************/
+/*!****************************************************************************!*\
+  !*** /Users/siyn/Desktop/edmHUB/components/uni-swipe-action-item/mpwxs.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9633,9 +9641,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 21:
-/*!******************************************************************!*\
-  !*** /Users/aimi/代码/edmHUB/edmHUB/components/uni-icons/icons.js ***!
-  \******************************************************************/
+/*!****************************************************************!*\
+  !*** /Users/siyn/Desktop/edmHUB/components/uni-icons/icons.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9775,9 +9783,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 24:
-/*!***************************************************!*\
-  !*** /Users/aimi/代码/edmHUB/edmHUB/utils/index.js ***!
-  \***************************************************/
+/*!*************************************************!*\
+  !*** /Users/siyn/Desktop/edmHUB/utils/index.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9881,9 +9889,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 4:
-/*!***********************************************!*\
-  !*** /Users/aimi/代码/edmHUB/edmHUB/pages.json ***!
-  \***********************************************/
+/*!*********************************************!*\
+  !*** /Users/siyn/Desktop/edmHUB/pages.json ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
