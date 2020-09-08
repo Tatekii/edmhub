@@ -2,7 +2,7 @@
 	<view>
 		<view v-for="item of chats" :key="item.chatid">
 			<uni-swipe-action>
-				<uni-swipe-action-item :options="options" @tap="remove">
+				<uni-swipe-action-item :options="options" @click="remove">
 					<view class="container" @tap.stop="intoChatRoom(item.chatid)">
 						<view :class="item.isRead === false ? 'badge' : ''"></view>
 						<view class="avatar"><image :src="item.avatarUrl" mode="aspectFit" class="img"></image></view>
@@ -35,7 +35,8 @@ export default {
 	computed: {},
 	methods: {
 		remove(e) {
-			console.log('当前点击的是第' + e.index + '个按钮，点击内容是' + e.content.text);
+			console.log('删除第' + e.index + '个聊天框')
+			this.$emit('delChat',e.index)
 		},
 
 		intoChatRoom(chatid) {
@@ -43,7 +44,8 @@ export default {
 		},
 		getLastWords(data) {
 			if(!data){
-				return '无新消息'
+				return '加载中'
+				// 其实是懒
 			}
 			return '[' + this.$tools.comparDate(data.date) + '前]' + data.content;
 			//格式化

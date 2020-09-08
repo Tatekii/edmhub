@@ -137,7 +137,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 8));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 8));
 
 
 
@@ -172,8 +172,8 @@ var db = wx.cloud.database();var _default =
   computed: _objectSpread({},
   (0, _vuex.mapState)(['hasLogin', 'userInfo'])),
 
-  methods: _objectSpread({},
-  (0, _vuex.mapMutations)(['login', 'update', 'commitMsg']), {
+  methods: _objectSpread(_objectSpread({},
+  (0, _vuex.mapMutations)(['login', 'update', 'commitMsg'])), {}, {
     getUserInfo: function getUserInfo(e) {
       uni.showLoading({
         mask: true,

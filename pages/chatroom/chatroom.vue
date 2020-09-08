@@ -27,7 +27,8 @@ export default {
 			dialoge: [],
 			targetInfo: [],
 			message: '',
-			options:{}
+			options:{},
+			sending:false
 		};
 	},
 	computed: {
@@ -55,6 +56,9 @@ export default {
 			});
 		},
 		async send() {
+			if(this.sending===true)return 
+			// 话要一句一句说
+			this.sending = true
 			let msg = this.message;
 			let chatid = this.options.chatid;
 			let target = this.targetInfo._openid;
@@ -70,7 +74,7 @@ export default {
 				.then(async res => {
 					console.log(`发送${msg}给${target}`, res.result);
 					this.message = '';
-					flag = true
+					this.sending = false
 				});
 		},
 		async watchCurrentChat() {
@@ -81,7 +85,7 @@ export default {
 					onChange: snapshot => {												
 						let newDialoge = snapshot.docs[0].dialoge;
 						if(snapshot.docChanges[0].dataType==='init'){
-							console.log('init')
+							console.log('init,不执行啧监听逻辑到此为止')
 							return
 						}
 						if (!newDialoge || !newDialoge.length) return;
@@ -131,7 +135,7 @@ export default {
 		});
 		this.isRead(options.chatid);
 		this.watchCurrentChat()
-		console.log(this)
+
 	},
 	async onUnload(){
 		await this.chatRoomWatcher.close()

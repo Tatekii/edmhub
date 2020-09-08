@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "去打个招呼吧",
+  "navigationBarTitleText": "Find",
   "usingComponents": {
     "user-list": "/components/userList/userList"
   }

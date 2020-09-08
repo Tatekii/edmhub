@@ -86,9 +86,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var l0 = _vm.__map(_vm.listData, function(item, __i0__) {
-    var g0 = _vm.$tools.formatLikes(item.like)
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = _vm.type === "recommend" ? _vm.$tools.formatLikes(item.like) : null
     return {
-      $orig: _vm.__get_orig(item),
+      $orig: $orig,
       g0: g0
     }
   })

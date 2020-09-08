@@ -89,9 +89,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var l0 = _vm.__map(_vm.chats, function(item, __i0__) {
+    var $orig = _vm.__get_orig(item)
+
     var m0 = _vm.getLastWords(item.last)
     return {
-      $orig: _vm.__get_orig(item),
+      $orig: $orig,
       m0: m0
     }
   })
@@ -174,7 +176,8 @@ var _default =
   computed: {},
   methods: {
     remove: function remove(e) {
-      console.log('当前点击的是第' + e.index + '个按钮，点击内容是' + e.content.text);
+      console.log('删除第' + e.index + '个聊天框');
+      this.$emit('delChat', e.index);
     },
 
     intoChatRoom: function intoChatRoom(chatid) {
@@ -182,7 +185,8 @@ var _default =
     },
     getLastWords: function getLastWords(data) {
       if (!data) {
-        return '无新消息';
+        return '加载中';
+        // 其实是懒
       }
       return '[' + this.$tools.comparDate(data.date) + '前]' + data.content;
       //格式化

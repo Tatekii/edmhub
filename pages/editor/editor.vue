@@ -386,7 +386,6 @@ export default {
 }
 
 .introduce .item {
-	height: 40rpx;
 	line-height: 40rpx;
 	font-weight: bolder;
 	padding: 4rpx;
@@ -394,6 +393,7 @@ export default {
 	border: 1rpx gray solid;
 	border-radius: 4rpx;
 	font-size: 42rpx;
+	display: inline-block;
 }
 
 .save {

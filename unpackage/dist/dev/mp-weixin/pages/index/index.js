@@ -149,16 +149,31 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
+//
 
 // import {mapState} from 'vuex'
 var _default = {
   computed: {
     // ...mapState(['chats'])
   },
-  methods: {},
+  methods: {
+    msgCheck: function msgCheck() {
+      wx.cloud.callFunction({
+        name: 'msgCheck',
+        data: {
+          msg: this.msg } }).
+
+      then(function (res) {
+        console.log(res);
+      });
+    } },
 
   data: function data() {
     return {
+      msg: '',
       gallery: [
       {
         title:

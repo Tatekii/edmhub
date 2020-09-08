@@ -14,6 +14,10 @@
 				</view>
 			</swiper>
 		</view>
+		<view class="msg">
+			<button type="default" @tap="msgCheck">内容安全检查测试</button>
+			<input type="text" v-model="msg"/>
+		</view>
 	</view>
 </template>
 
@@ -24,9 +28,20 @@ export default {
 			// ...mapState(['chats'])
 	},
 	methods: {
+		msgCheck(){
+			wx.cloud.callFunction({
+				name:'msgCheck',
+				data:{
+					msg:this.msg
+				}
+			}).then(res=>{
+				console.log(res)
+			})
+		}
 	},
 	data() {
 		return {
+			msg:'',
 			gallery: [
 				{
 					title:

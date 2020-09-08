@@ -35,9 +35,8 @@ const store = new Vuex.Store({
 		// },
 		updateNow(state,payload){
 			state.changeNow = payload
-			const timer = setTimeout(()=>{
+			setTimeout(()=>{
 				state.changeNow = false
-				timer = null
 			},0)
 		}
 	},

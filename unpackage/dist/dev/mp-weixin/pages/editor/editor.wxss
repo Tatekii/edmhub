@@ -119,7 +119,6 @@
 	padding: 8rpx;
 }
 .introduce .item.data-v-455c8db4 {
-	height: 40rpx;
 	line-height: 40rpx;
 	font-weight: bolder;
 	padding: 4rpx;
@@ -127,6 +126,7 @@
 	border: 1rpx gray solid;
 	border-radius: 4rpx;
 	font-size: 42rpx;
+	display: inline-block;
 }
 .save.data-v-455c8db4 {
 	position: absolute;

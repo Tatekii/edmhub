@@ -1,9 +1,9 @@
 <template>
 	<view class="container">
 		<view class="tab">
-			<view :class="tab === 'recommend' ? 'active' : ''" @tap="recommendTab">推荐</view>
+			<view>推荐</view>
 		</view>
-		<userList :type="tab" :listData="userList"></userList>
+		<userList :type="tab" :listData="recommendList"></userList>
 	</view>
 </template>
 
@@ -15,7 +15,6 @@ const _ = db.command
 export default {
 	data() {
 		return {
-			userList: [],
 			tab: 'recommend',
 			recommendList: [],
 		};
@@ -49,39 +48,23 @@ export default {
 				}
 			});
 		},
-		async recommendTab() {
-			if (this.tab === 'recommend') {
-				return;
-			}
-			await this.getAllList()
-			this.tab = 'recommend';
-			this.userList = this.recommendList;
-			wx.setNavigationBarTitle({
-				title: '认识新朋友'
-			});
-		},
 		getAllList() {
 			uni.showLoading({
-				title: '加载中'
+				title: '正在寻找其他人'
 			});
 			wx.cloud.callFunction({
 				name:'getRecomend',
 				data:{}
 			}).then(res=>{
 				this.recommendList = res.result.data
+				uni.hideLoading();
 			}).catch(err=>{
 				console.log(err)
-			}).then(()=>{
-				this.userList = this.recommendList
-				uni.hideLoading();
 			})
 		}
 	},
 	onShow() {
 		this.getAllList()
-	},
-	onLoad() {
-		// this.getAllList()
 	}
 };
 </script>
@@ -104,9 +87,5 @@ export default {
 	flex: 1;
 	text-align: center;
 	border-bottom: 1rpx #232323 solid;
-}
-
-.tab .active {
-	border-bottom: 6rpx #fc870a solid;
 }
 </style>

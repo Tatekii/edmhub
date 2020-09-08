@@ -102,10 +102,17 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var l0 = _vm.__map(_vm.dialoge, function(item, index) {
-    var g0 = _vm.$tools.formatTime(item.date)
-    var g1 = _vm.$tools.formatTime(item.date)
+    var $orig = _vm.__get_orig(item)
+
+    var g0 =
+      item.speaker === _vm.userInfo._openid
+        ? _vm.$tools.formatTime(item.date)
+        : null
+    var g1 = !(item.speaker === _vm.userInfo._openid)
+      ? _vm.$tools.formatTime(item.date)
+      : null
     return {
-      $orig: _vm.__get_orig(item),
+      $orig: $orig,
       g0: g0,
       g1: g1
     }
@@ -152,7 +159,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 8));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 8));
 
 
 
@@ -174,7 +181,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _createForOfIteratorHelper(o) {if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var it,normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //
+var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //
 //
 //
 //
@@ -194,8 +201,9 @@ var _vuex = __webpack_require__(/*! vuex */ 11);function _interopRequireDefault(
 //
 //
 //
-var db = wx.cloud.database();var _default = { data: function data() {return { dialoge: [], targetInfo: [], message: '', options: {} };}, computed: _objectSpread({}, (0, _vuex.mapState)(['userInfo', 'chats'])), methods: _objectSpread({}, (0, _vuex.mapMutations)(['updateNow']), { isRead: function isRead(chatid) {// 清除未读标签
-      wx.cloud.callFunction({ name: 'isRead', data: { chatid: chatid } }).
+var db = wx.cloud.database();var _default = { data: function data() {return { dialoge: [], targetInfo: [], message: '', options: {}, sending: false };}, computed: _objectSpread({}, (0, _vuex.mapState)(['userInfo', 'chats'])), methods: _objectSpread(_objectSpread({}, (0, _vuex.mapMutations)(['updateNow'])), {}, { isRead: function isRead(chatid) {// 清除未读标签
+      wx.cloud.callFunction({ name: 'isRead', data: {
+          chatid: chatid } }).
 
 
       then(function (res) {
@@ -208,10 +216,13 @@ var db = wx.cloud.database();var _default = { data: function data() {return { di
         duration: 0 });
 
     },
-    send: function send() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var msg, chatid, target;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+    send: function send() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var msg, chatid, target;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:if (!(
+                _this.sending === true)) {_context2.next = 2;break;}return _context2.abrupt("return");case 2:
+                // 话要一句一句说
+                _this.sending = true;
                 msg = _this.message;
                 chatid = _this.options.chatid;
-                target = _this.targetInfo._openid;_context2.next = 5;return (
+                target = _this.targetInfo._openid;_context2.next = 8;return (
                   wx.cloud.
                   callFunction({
                     name: 'sendMsg',
@@ -224,7 +235,7 @@ var db = wx.cloud.database();var _default = { data: function data() {return { di
                   then( /*#__PURE__*/function () {var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(res) {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                               console.log("\u53D1\u9001".concat(msg, "\u7ED9").concat(target), res.result);
                               _this.message = '';
-                              flag = true;case 3:case "end":return _context.stop();}}}, _callee);}));return function (_x) {return _ref.apply(this, arguments);};}()));case 5:case "end":return _context2.stop();}}}, _callee2);}))();
+                              _this.sending = false;case 3:case "end":return _context.stop();}}}, _callee);}));return function (_x) {return _ref.apply(this, arguments);};}()));case 8:case "end":return _context2.stop();}}}, _callee2);}))();
 
     },
     watchCurrentChat: function watchCurrentChat() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
@@ -235,7 +246,7 @@ var db = wx.cloud.database();var _default = { data: function data() {return { di
                     onChange: function onChange(snapshot) {
                       var newDialoge = snapshot.docs[0].dialoge;
                       if (snapshot.docChanges[0].dataType === 'init') {
-                        console.log('init');
+                        console.log('init,不执行啧监听逻辑到此为止');
                         return;
                       }
                       if (!newDialoge || !newDialoge.length) return;
@@ -284,8 +295,8 @@ var db = wx.cloud.database();var _default = { data: function data() {return { di
                 _this3.scroll();
               });
               _this3.isRead(options.chatid);
-              _this3.watchCurrentChat();
-              console.log(_this3);case 11:case "end":return _context4.stop();}}}, _callee4);}))();
+              _this3.watchCurrentChat();case 10:case "end":return _context4.stop();}}}, _callee4);}))();
+
   },
   onUnload: function onUnload() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:_context5.next = 2;return (
                 _this4.chatRoomWatcher.close());case 2:case "end":return _context5.stop();}}}, _callee5);}))();

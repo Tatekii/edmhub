@@ -17,11 +17,11 @@
 		<view class="list">
 			<view class="reqList" v-if="showList === 'req' && request.length"><reqList :list="request"></reqList></view>
 
-			<view class="friendList" v-if="showList === 'fri' && userInfo.friend.length"><friendList :list="friendData" v-on:intoChatRoom="intoChatRoom"></friendList></view>
+			<view class="friendList" v-if="showList === 'fri' && userInfo.friend.length"><friendList :list="friendData" @intoChatRoom="intoChatRoom"></friendList></view>
 		</view>
 		
 		<view class="chatList" :class="showList ? 'fade' : ''">
-			<chatList :chats="chats" v-on:intoChatRoom="intoChatRoom"></chatList>
+			<chatList :chats="chats" @intoChatRoom="intoChatRoom" @delChat="delChat"></chatList>
 		</view>
 	</view>
 </template>
@@ -50,7 +50,8 @@ export default {
 		},
 		mixFriToList(){
 			for(let item of this.chats){
-				let curUser = this.friendData.find(user=>user._openid===item.with)
+				let friData = this.friendData
+				let curUser =  friData .find(user=>user._openid===item.with)
 				Object.assign(item,curUser)
 			}
 		}
@@ -69,12 +70,18 @@ export default {
 		changeNow(flag){
 			if(flag===true){
 				//刷新last数据
-				return
 				this.refreshLast()
 			}
 		}
 	},
 	methods: {
+		delChat(index){
+				console.log(index)
+				// 删除vuex中数据
+				// 删除localStorage
+				
+				
+		},
 		refreshLast(){
 			for(let item of this.chats){
 				let dialoge = uni.getStorageSync(item.chatid)

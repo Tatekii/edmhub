@@ -167,14 +167,6 @@ export default {
 						uni.setStorageSync(item._id, localCatch.concat(item.dialoge));
 						
 						this.updateNow(true)
-						
-						// commitData中加入last
-
-						// for (let k of this.commitData.chats) {
-						// 	if (k.chatid === item._id) {
-						// 		k = Object.assign(k, { last: item.dialoge });
-						// 	}
-						// }
 					}
 				})
 				.then(() => {

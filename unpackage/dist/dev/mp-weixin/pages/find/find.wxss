@@ -20,7 +20,4 @@
 	text-align: center;
 	border-bottom: 1rpx #232323 solid;
 }
-.tab .active.data-v-408c90a6 {
-	border-bottom: 6rpx #fc870a solid;
-}
 

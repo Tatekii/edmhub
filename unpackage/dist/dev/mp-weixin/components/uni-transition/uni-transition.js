@@ -188,8 +188,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
   computed: {
     stylesObject: function stylesObject() {
-      var styles = _objectSpread({},
-      this.styles, {
+      var styles = _objectSpread(_objectSpread({},
+      this.styles), {}, {
         'transition-duration': this.duration / 1000 + 's' });
 
       var transfrom = '';
