@@ -26,7 +26,8 @@
 /* 文章场景相关 */
 .uni-popup-dialog.data-v-2fab037e {
   width: 300px;
-  border-radius: 15px;
+  -webkit-border-radius: 15px;
+          border-radius: 15px;
   background-color: #fff;
 }
 .uni-dialog-title.data-v-2fab037e {

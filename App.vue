@@ -1,5 +1,4 @@
 <script>
-import { mapMutations, mapState } from 'vuex';
 export default {
 	data() {
 		return {
@@ -7,11 +6,7 @@ export default {
 			commitData: {}
 		};
 	},
-	computed: {
-		...mapState(['userInfo', 'chats'])
-	},
 	methods: {
-		...mapMutations(['login', 'commitMsg', 'update','updateNow']),
 		async autoLogin() {
 			uni.showLoading({
 				mask: true,
@@ -192,7 +187,7 @@ export default {
 				});
 		}
 	},
-	onLaunch: async function() {
+	onLaunch: function() {
 		if (!wx.cloud) {
 			console.error('不支持云能力');
 		} else {
@@ -201,20 +196,13 @@ export default {
 				traceUser: true
 			});
 			// 自动登录
-			await this.autoLogin();
+			this.autoLogin();
 		}
 	}
 };
 </script>
 
 <style>
-/* 解决头条小程序组件内引入字体不生效的问题 */
-/* #ifdef MP-TOUTIAO */
-@font-face {
-	font-family: uniicons;
-	src: url('/static/uni.ttf');
-}
-/* #endif */
 page {
 	background: #161616;
 }

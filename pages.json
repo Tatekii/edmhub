@@ -74,6 +74,5 @@
 		"navigationBarTitleText": "EDM Hub",
 		"navigationBarTextStyle": "black",
 		"backgroundColor": "#161616"
-	},
-	"subPackages": []
+	}
 }

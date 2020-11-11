@@ -7,7 +7,8 @@ color: gray;
 /* background: #232323; */
 text-align: center;
 font-size: 26rpx;
-border-radius: 26rpx;
+-webkit-border-radius: 26rpx;
+        border-radius: 26rpx;
 width: 180rpx;
 margin: 20rpx auto;
 }
@@ -49,11 +50,13 @@ margin: 20rpx auto;
 	margin: 0 20rpx;
 }
 .self .content.data-v-0ac84778{
-	border-radius: 26rpx 0rpx 26rpx 26rpx;
+	-webkit-border-radius: 26rpx 0rpx 26rpx 26rpx;
+	        border-radius: 26rpx 0rpx 26rpx 26rpx;
 	background: #27AA4E;
 }
 .target .content.data-v-0ac84778{
-	border-radius: 0 26rpx 26rpx 26rpx;
+	-webkit-border-radius: 0 26rpx 26rpx 26rpx;
+	        border-radius: 0 26rpx 26rpx 26rpx;
 	background: #FF3B75;
 }
 

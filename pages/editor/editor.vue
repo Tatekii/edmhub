@@ -148,6 +148,14 @@ export default {
 			})
 				.then(res => {
 					let tempPath = res[1].tempFiles[0].path;
+					
+					
+					
+					//图片安全检查
+					
+					
+					
+					
 					uni.compressImage({
 						src: tempPath,
 						quality: 1
@@ -242,7 +250,6 @@ export default {
 					});
 			}
 			//---------------
-
 			await wx.cloud
 				.callFunction({
 					name: 'update',

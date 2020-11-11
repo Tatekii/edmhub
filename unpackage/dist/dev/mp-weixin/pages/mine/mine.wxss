@@ -7,7 +7,8 @@
 .editInfo {
 	color: skyblue;
 	border: 1rpx solid skyblue;
-	border-radius: 8rpx;
+	-webkit-border-radius: 8rpx;
+	        border-radius: 8rpx;
 	padding: 8rpx;
 	margin-right: 20rpx;
 	background-color: #232323;

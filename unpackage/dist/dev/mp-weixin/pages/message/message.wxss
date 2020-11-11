@@ -17,7 +17,8 @@
 	color: white;
 	padding: 12rpx;
 	border: 4rpx solid black;
-	border-radius: 30rpx;
+	-webkit-border-radius: 30rpx;
+	        border-radius: 30rpx;
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
 	        flex: 1;
@@ -30,7 +31,8 @@
 }
 .title .reqCount.data-v-a91f51d4 {
 	background: #fc870a;
-	border-radius: 40rpx;
+	-webkit-border-radius: 40rpx;
+	        border-radius: 40rpx;
 	display: inline-block;
 	margin: 0 10rpx;
 	text-align: center;

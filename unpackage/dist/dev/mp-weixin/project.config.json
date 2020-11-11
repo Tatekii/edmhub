@@ -6,37 +6,14 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
-		"enhance": true,
 		"postcss": true,
-		"preloadBackgroundData": false,
-		"minified": true,
-		"newFeature": false,
-		"coverView": true,
-		"nodeModules": false,
-		"autoAudits": false,
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false,
-		"uglifyFileName": false,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"compileHotReLoad": false,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"useIsolateContext": true,
-		"useCompilerModule": true,
-		"userConfirmedUseCompilerModuleSwitch": false
+		"minified": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "",
 	"appid": "wxa5215f4a4e070071",
 	"projectname": "edmHUB",
 	"cloudfunctionRoot": "cloudFunctions/",
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -63,8 +40,8 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "pages/message/message",
-					"pathName": "pages/message/message",
+					"name": "pages/mine/mine",
+					"pathName": "pages/mine/mine",
 					"scene": null
 				}
 			]

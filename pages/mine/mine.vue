@@ -74,9 +74,6 @@ export default {
 				});
 		},
 		uploadCover() {
-			uni.showLoading({
-				title: '请稍后'
-			});
 			const openid = this.userInfo._openid;
 			uni.chooseImage({
 				count: 1,
@@ -91,15 +88,20 @@ export default {
 						quality: 1
 					}).then(res => {
 						tempPath = res[1].tempFilePath;
+						// 
+						let time = Date.now()
+						time = String(time)
+						time = time.substring(10)
 						wx.cloud
 							.uploadFile({
-								cloudPath: `userCover/${openid}_cover.jpg`,
+								cloudPath: `userCover/${openid}_cover_${time}.jpg`,
 								filePath: tempPath // 文件路径
 							})
-							.then(res => {
+							.then(async res => {
 								console.log(res.fileID);
-								if (res.statusCode === 200) {
-									wx.cloud
+								console.log(res)
+								if (res.errMsg === "cloud.uploadFile:ok") {
+									await wx.cloud
 										.callFunction({
 											name: 'update',
 											data: {
@@ -112,10 +114,6 @@ export default {
 										})
 										.then(res => {
 											console.log(res);
-											// 云数据库有延时，使用临时路径顶上
-											// this.update({
-											// 	coverUrl: tempPath
-											// });
 											uni.hideLoading();
 										});
 								}
@@ -154,78 +152,13 @@ export default {
 					});
 				});
 		},
-		// async watchMsg() {
-		// 	await db
-		// 		.collection('message')
-		// 		.orderBy('date', 'desc')
-		// 		.where({
-		// 			user: this.userInfo._openid
-		// 		})
-		// 		.watch({
-		// 			onChange: snapshot => {
-		// 				const data = snapshot.docs[0];
-		// 				if (snapshot.docChanges[0].dataType === 'init') return; // 避开初始化
-		// 				console.log('watch到msg');
-		// 				console.log(data);
-		// 				this.commitMsg(data);
-
-		// 				let flag1 = data.request.length; //有无请求
-		// 				let flag2 = false; // 有无新消息
-		// 				let arr = []
-		// 				if (data.chats) {
-		// 					for (let i of data.chats) {
-		// 						if (i.isNew) {
-		// 							flag2 = true;
-		// 							arr.push(i.chatid)
-		// 							// 检测到isNew
-		// 							// 获取chatid拉取聊天到本地缓存
-		// 						}
-		// 					}
-		// 				}
-		// 				if(flag2){
-		// 					this.downlaodChat(arr)
-		// 				}
-		// 				if (flag1 || flag2) {
-		// 					uni.showTabBarRedDot({
-		// 						index: 2
-		// 					});
-		// 				}
-
-		// 				if (!flag1 && !flag2) {
-		// 					uni.hideTabBarRedDot({
-		// 						index: 2
-		// 					});
-		// 				}
-						
-						
-		// 			},
-		// 			onError: err => {
-		// 				console.error('the watch closed because of error', err);
-		// 			}
-		// 		});
-		// },
-		// async downlaodChat(chatsArr) {
-		// 	await wx.cloud
-		// 		.callFunction({
-		// 			name: 'getChatData',
-		// 			data: {
-		// 				list:chatsArr
-		// 			}
-		// 		})
-		// 		.then(async res => {
-		// 			const data = res.result.data;
-		// 			console.log('拉取线上聊天', data);
-		
-		// 			// 存入本地缓存
-		// 			for (let item of data) {
-		// 				const oldData = uni.getStorageSync(item._id) || [];
-		// 				await uni.setStorageSync(item._id, oldData.concat(item.dialoge))
-		// 				this.commitLast(item)
-		// 			}
-		// 		})
-		// }
 	},
-	onLoad() {}
+	  onShareAppMessage: function () {
+	    return {
+	      title: '快来找我玩耍',
+	      path: '/index/index?id=123'
+	    }
+	  },
 };
 </script>
 

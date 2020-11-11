@@ -52,12 +52,17 @@
     "quickapp" : {},
     "mp-weixin" : {
         "appid" : "wxa5215f4a4e070071",
-		"cloudfunctionRoot": "./cloudFunctions/",
+        "cloudfunctionRoot" : "./cloudFunctions/",
         "setting" : {
             "urlCheck" : false,
             "es6" : true,
             "postcss" : true,
             "minified" : true
+        },
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "你的位置信息将用于小程序位置接口的效果展示"
+            }
         }
     },
     "mp-alipay" : {

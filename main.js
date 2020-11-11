@@ -2,8 +2,9 @@ import Vue from 'vue'
 import App from './App'
 
 import store from './store'
-import uniIcons from "@/components/uni-icons/uni-icons.vue"
 import tools from './utils'
+
+import mixin from './mixins'
 
 Vue.use('uniIcon')
 
@@ -16,6 +17,7 @@ App.mpType = 'app'
 
 const app = new Vue({
 	store,
-	...App
+	...App,
+	mixins:[mixin]
 })
 app.$mount()
