@@ -36,19 +36,19 @@ export default {
 	},
 	methods: {
 		...mapMutations(['updateNow']),
-		isRead(chatid) {
-			// 清除未读标签
-			wx.cloud
-				.callFunction({
-					name: 'isRead',
-					data: {
-						chatid
-					}
-				})
-				.then(res => {
-					console.log('已读', res);
-				});
-		},
+		// isRead(chatid) {
+		// 	// 清除未读标签
+		// 	wx.cloud
+		// 		.callFunction({
+		// 			name: 'isRead',
+		// 			data: {
+		// 				chatid
+		// 			}
+		// 		})
+		// 		.then(res => {
+		// 			console.log('已读', res);
+		// 		});
+		// },
 		scroll() {
 			uni.pageScrollTo({
 				scrollTop: 99999999,
@@ -84,10 +84,10 @@ export default {
 				.watch({
 					onChange: snapshot => {												
 						let newDialoge = snapshot.docs[0].dialoge;
-						if(snapshot.docChanges[0].dataType==='init'){
-							console.log('init,不执行啧监听逻辑到此为止')
-							return
-						}
+						// if(snapshot.docChanges[0].dataType==='init'){
+						// 	console.log('init,不执行啧监听逻辑到此为止')
+						// 	return
+						// }
 						if (!newDialoge || !newDialoge.length) return;
 						newDialoge = newDialoge[newDialoge.length - 1];
 
@@ -133,9 +133,8 @@ export default {
 			// scrollToBottom
 			this.scroll();
 		});
-		this.isRead(options.chatid);
+		// this.isRead(options.chatid);
 		this.watchCurrentChat()
-
 	},
 	async onUnload(){
 		await this.chatRoomWatcher.close()

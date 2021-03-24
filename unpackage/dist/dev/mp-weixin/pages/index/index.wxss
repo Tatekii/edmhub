@@ -23,7 +23,6 @@
   height: 100%;
   width: 100%;
   text-align: center;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255,51,0,0.795)), color-stop(rgba(251,255,0,0.808)), color-stop(rgba(0,162,255,0.801)), to(rgba(255,0,242,0.808)));
   background: -webkit-linear-gradient(rgba(255,51,0,0.795), rgba(251,255,0,0.808), rgba(0,162,255,0.801), rgba(255,0,242,0.808));
   background: linear-gradient(rgba(255,51,0,0.795), rgba(251,255,0,0.808), rgba(0,162,255,0.801), rgba(255,0,242,0.808));
   position: relative;
@@ -44,8 +43,7 @@
           flex: 1;
   background: #161616;
   border: 4rpx solid #000;
-  -webkit-border-radius: 40rpx;
-          border-radius: 40rpx;
+  border-radius: 40rpx;
 }
 .msg .title.data-v-57280228 {
   font-size: 40rpx;
@@ -70,15 +68,24 @@
 }
 .msg .list .section.data-v-57280228 {
   background: #007aff;
-  margin: 8rpx;
+  margin: 24rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
+  height: 60rpx;
+  line-height: 60rpx;
 }
-.msg .list text.data-v-57280228 {
-  border: 4rpx #009d91;
+.msg .list .section .due.data-v-57280228 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  font-size: 30rpx;
+}
+.msg .list .section text.data-v-57280228 {
+  -webkit-box-flex: 0,;
+  -webkit-flex: 0, 1;
+          flex: 0, 1;
+  text-align: center;
+  border: 4rpx soli #ff0;
 }
 

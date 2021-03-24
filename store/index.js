@@ -9,7 +9,7 @@ const store = new Vuex.Store({
 		userInfo: {},
 		request: [],
 		chats: [],
-		changeNow:false
+		changeNow: false
 	},
 	mutations: {
 		login(state, userInfo) {
@@ -22,15 +22,18 @@ const store = new Vuex.Store({
 			}
 		},
 		commitMsg(state, payload) {
+			console.log('----------')
 			console.log('commitMsg')
+			console.log(payload)
+			console.log('----------')
 			state.request = payload.request
 			state.chats = payload.chats
 		},
-		updateNow(state,payload){
+		updateNow(state, payload) {
 			state.changeNow = payload
-			setTimeout(()=>{
+			setTimeout(() => {
 				state.changeNow = false
-			},0)
+			}, 0)
 		}
 	},
 	getters: {

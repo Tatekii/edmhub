@@ -7,7 +7,8 @@
 						<view :class="item.isRead === false ? 'badge' : ''"></view>
 						<view class="avatar"><image :src="item.avatarUrl" mode="aspectFit" class="img"></image></view>
 						<view class="nickName">{{ item.nickName }}</view>
-							<view class="lastWords">{{ getLastWords(item.last) }}</view>
+							<view class="lastWords">{{ item.chatid }}</view>
+							<!-- <view class="lastWords">{{ item.chatid }}</view> -->
 					</view>
 				</uni-swipe-action-item>
 			</uni-swipe-action>
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+const db = wx.cloud.database();
 export default {
 	data() {
 		return {
@@ -41,15 +43,20 @@ export default {
 
 		intoChatRoom(chatid) {
 			this.$emit('intoChatRoom', { chatid });
-		},
-		getLastWords(data) {
-			if(!data){
-				return '加载中'
-				// 其实是懒
-			}
-			return '[' + this.$tools.comparDate(data.date) + '前]' + data.content;
-			//格式化
 		}
+		// async getLastWords(chatid) {
+		// 	if(!chatid){
+		// 		return ''
+		// 		// 其实是懒
+		// 	}
+		// 	return await db.collection('chats').where({
+		// 		'_id':chatid
+		// 	}).get().then(res=>{
+		// 		console.log(res)
+		// 	})
+		// 	// return '[' + this.$tools.comparDate(data.date) + '前]' + data.content;
+		// 	//格式化
+		// }
 	}
 };
 </script>

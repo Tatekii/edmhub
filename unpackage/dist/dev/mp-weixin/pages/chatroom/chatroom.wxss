@@ -27,15 +27,13 @@
 }
 .input .inputwrap .inputarea.data-v-4748afe6 {
 	border: 8rpx solid #232323;
-	-webkit-border-radius: 16rpx;
-	        border-radius: 16rpx;
+	border-radius: 16rpx;
 	height: 100%;
 	background: #090909;
 	font-size: 34rpx;
 	padding: 10rpx;
 	width: 100%;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 .input .send.data-v-4748afe6 {
 	-webkit-box-flex: 0;

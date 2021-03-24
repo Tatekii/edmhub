@@ -1,8 +1,7 @@
 
 .wrap{
 	background: #FC870A;
-	-webkit-border-radius: 50%;
-	        border-radius: 50%;
+	border-radius: 50%;
 	width: 90rpx;
 	height: 86rpx;
 	text-align: center;

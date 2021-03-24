@@ -2,8 +2,7 @@
 .container.data-v-0ff9a2c4 {
 	padding: 10rpx;
 	border: 4rpx solid black;
-	-webkit-border-radius: 30rpx;
-	        border-radius: 30rpx;
+	border-radius: 30rpx;
 	width: 730rpx;
 	background: #009d91;
 	position: relative;
@@ -12,8 +11,7 @@
 	width: 24rpx;
 	height: 24rpx;
 	background: red;
-	-webkit-border-radius: 50%;
-	        border-radius: 50%;
+	border-radius: 50%;
 	position: absolute;
 	top: 10rpx;
 	float: left;
@@ -24,8 +22,7 @@
 .avatar.data-v-0ff9a2c4 {
 	height: 100rpx;
 	width: 100rpx;
-	-webkit-border-radius: 20rpx;
-	        border-radius: 20rpx;
+	border-radius: 20rpx;
 	overflow: hidden;
 	float: left;
 	margin-right: 20rpx;

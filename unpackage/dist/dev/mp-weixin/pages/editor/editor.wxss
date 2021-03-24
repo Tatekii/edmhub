@@ -4,9 +4,7 @@
 	min-height: 100%;
 	padding: 10rpx;
 	border: 4rpx solid;
-	-webkit-border-image: -webkit-gradient(linear, left top, left bottom, from(rgb(219, 51, 51)), to(rgb(89, 0, 255))) 30 30;
 	-webkit-border-image: -webkit-linear-gradient(rgb(219, 51, 51), rgb(89, 0, 255)) 30 30;
-	        border-image: -webkit-gradient(linear, left top, left bottom, from(rgb(219, 51, 51)), to(rgb(89, 0, 255))) 30 30;
 	        border-image: linear-gradient(rgb(219, 51, 51), rgb(89, 0, 255)) 30 30;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -28,8 +26,7 @@
 .avatar image.data-v-455c8db4 {
 	width: 250rpx;
 	height: 250rpx;
-	-webkit-border-radius: 10px;
-	        border-radius: 10px;
+	border-radius: 10px;
 }
 @-webkit-keyframes rotate-data-v-455c8db4 {
 100% {
@@ -48,8 +45,7 @@
 	z-index: 0;
 	width: 250rpx;
 	height: 250rpx;
-	-webkit-border-radius: 10px;
-	        border-radius: 10px;
+	border-radius: 10px;
 	overflow: hidden;
 	padding: 8rpx;
 }
@@ -65,7 +61,6 @@
 	background-repeat: no-repeat;
 	background-size: 50% 50%, 50% 50%;
 	background-position: 0 0, 100% 0, 100% 100%, 0 100%;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#5fff8a), to(#399953)), -webkit-gradient(linear, left top, left bottom, from(#ffc83d), to(#fbb300)), -webkit-gradient(linear, left top, left bottom, from(#e65147), to(#d53e33)), -webkit-gradient(linear, left top, left bottom, from(#37aff5), to(#377af5));
 	background-image: -webkit-linear-gradient(#5fff8a, #399953), -webkit-linear-gradient(#ffc83d, #fbb300), -webkit-linear-gradient(#e65147, #d53e33), -webkit-linear-gradient(#37aff5, #377af5);
 	background-image: linear-gradient(#5fff8a, #399953), linear-gradient(#ffc83d, #fbb300), linear-gradient(#e65147, #d53e33), linear-gradient(#37aff5, #377af5);
 	-webkit-animation: rotate-data-v-455c8db4 4s linear infinite;
@@ -80,8 +75,7 @@
 	width: calc(100% - 24rpx);
 	height: calc(100% - 24rpx);
 	background: white;
-	-webkit-border-radius: 10rpx;
-	        border-radius: 10rpx;
+	border-radius: 10rpx;
 }
 .introduce .addNew.data-v-455c8db4 {
 	width: 80%;
@@ -94,8 +88,7 @@
 	height: 80rpx;
 	line-height: 100%;
 	border: 4rpx #232323 solid;
-	-webkit-border-radius: 10px;
-	        border-radius: 10px;
+	border-radius: 10px;
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
 	        flex: 1;
@@ -108,8 +101,7 @@
 	line-height: 80rpx;
 	width: 100rpx;
 	border: 4rpx #232323 solid;
-	-webkit-border-radius: 10px;
-	        border-radius: 10px;
+	border-radius: 10px;
 	background-color: greenyellow;
 }
 .introduce .cells.data-v-455c8db4 {
@@ -121,8 +113,7 @@
 	-webkit-flex-wrap: wrap;
 	        flex-wrap: wrap;
 	border: 4rpx solid #232323;
-	-webkit-border-radius: 10rpx;
-	        border-radius: 10rpx;
+	border-radius: 10rpx;
 	background: #000000;
 	margin: 18rpx;
 	padding: 8rpx;
@@ -133,8 +124,7 @@
 	padding: 4rpx;
 	margin: 4rpx;
 	border: 1rpx gray solid;
-	-webkit-border-radius: 4rpx;
-	        border-radius: 4rpx;
+	border-radius: 4rpx;
 	font-size: 42rpx;
 	display: inline-block;
 }

@@ -1,0 +1,25 @@
+app: getLocation
+component: scf
+inputs:
+  cls:
+    logsetId: dece71b3-0e87-42ff-b81c-5c0dd4233c30
+    topicId: 000a630d-3623-409b-baa7-dc84dbb9970d
+  description: ''
+  eip: false
+  enableRoleAuth: true
+  events: []
+  handler: index.main
+  memorySize: 256
+  name: getLocation
+  namespace: dev-0033
+  publicAccess: true
+  region: ap-shanghai
+  role: TCB_QcsRole
+  runtime: Nodejs10.15
+  src: ./src
+  timeout: 3
+name: ap-shanghai_dev-0033_getLocation
+org: '1259478162'
+stage: dev
+# When using this configuration file for deployment, make sure the file name is "serverless.yml".
+# For more information: https://github.com/serverless-components/tencent-scf/blob/master/docs/configure.md

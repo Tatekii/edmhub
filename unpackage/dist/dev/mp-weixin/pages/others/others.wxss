@@ -11,14 +11,12 @@
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
 	        flex: 1;
-	-webkit-border-radius: 30rpx;
-	        border-radius: 30rpx;
+	border-radius: 30rpx;
 }
 .editInfo.stranger.data-v-a533cf34 {
 	color: pink;
 	border: 1rpx solid hotpink;
-	-webkit-border-radius: 8rpx;
-	        border-radius: 8rpx;
+	border-radius: 8rpx;
 	padding: 8rpx;
 	margin-right: 20rpx;
 	background-color: #232323;
@@ -26,8 +24,7 @@
 .editInfo.friend.data-v-a533cf34 {
 	color: red;
 	border: 1rpx solid red;
-	-webkit-border-radius: 8rpx;
-	        border-radius: 8rpx;
+	border-radius: 8rpx;
 	padding: 8rpx;
 	margin-right: 20rpx;
 	background-color: #232323;

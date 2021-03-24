@@ -6,16 +6,14 @@
 	display: flow-root;
 	padding: 10rpx;
 	border: 4rpx solid #000000;
-	-webkit-border-radius: 20rpx;
-	        border-radius: 20rpx;
+	border-radius: 20rpx;
 		background: #ed3b83;
 		margin-bottom: 8rpx;
 }
 .avatar.data-v-fa97bb78 {
 	width: 120rpx;
 	height: 120rpx;
-	-webkit-border-radius: 20rpx;
-	        border-radius: 20rpx;
+	border-radius: 20rpx;
 	overflow: hidden;
 	float: left;
 	margin: 0 10rpx;
@@ -40,8 +38,7 @@
 	float: right;
 }
 .button .btn.data-v-fa97bb78 {
-	-webkit-border-radius: 20rpx;
-	        border-radius: 20rpx;
+	border-radius: 20rpx;
 	padding: 6rpx;
 	color: #161616;
 }

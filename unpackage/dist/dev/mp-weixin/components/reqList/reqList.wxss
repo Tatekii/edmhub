@@ -3,8 +3,7 @@
 	color: #ffffff;
 	padding: 10rpx;
 	border: 4rpx solid #000000;
-	-webkit-border-radius: 20rpx;
-	        border-radius: 20rpx;
+	border-radius: 20rpx;
 	background: #2c405a;
 }
 .list .reqItem.data-v-c08c7684 {
@@ -12,8 +11,7 @@
 }
 .list .reqItem .word.data-v-c08c7684 {
 	border: 4rpx solid black;
-	-webkit-border-radius: 40rpx;
-	        border-radius: 40rpx;
+	border-radius: 40rpx;
 	background: #232323;
 	padding: 10rpx;
 }
@@ -24,22 +22,19 @@
 }
 .list .reqItem .button .reqCount.data-v-c08c7684 {
 	background-color: #009d91;
-	-webkit-border-radius: 40rpx;
-	        border-radius: 40rpx;
+	border-radius: 40rpx;
 	padding: 4rpx 10rpx;
 }
 .list .reqItem .button .refuceItem.data-v-c08c7684 {
 	margin-left: 4rpx;
 	background-color: #dd524d;
-	-webkit-border-radius: 40rpx;
-	        border-radius: 40rpx;
+	border-radius: 40rpx;
 	padding: 4rpx 10rpx;
 }
 .list .reqItem .button .fakeInto.data-v-c08c7684 {
 	margin-left: 4rpx;
 	padding: 4rpx 10rpx;
 	background-color: #ffa700;
-	-webkit-border-radius: 40rpx;
-	        border-radius: 40rpx;
+	border-radius: 40rpx;
 }
 
