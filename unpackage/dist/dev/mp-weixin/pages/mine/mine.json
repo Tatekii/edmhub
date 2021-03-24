@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "Me",
-  "usingComponents": {
-    "user-center": "/components/userCenter/userCenter",
-    "uni-icons": "/components/uni-icons/uni-icons"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "Find",
-  "usingComponents": {
-    "user-list": "/components/userList/userList"
-  }
-}
