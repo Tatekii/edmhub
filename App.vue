@@ -53,26 +53,36 @@
 					})
 					.watch({
 						onChange: async snapshot => {
+							console.log('message数据改变')
 							const data = snapshot.docs[0]
 							this.commitMsg(data)
-							
-							if(data.request.length){
-								// 好友请求
-									uni.showTabBarRedDot({
-										index: 2
-									});
-							}
+
+							let flag1 = data.request.length > 0
 							let flag2 = false
-							
-							if(data.chats.length>0){
-								for(let i of data.chats){
-									if(i.isNew){
+
+							if (data.chats.length > 0) {
+								for (let i of data.chats) {
+									if (i.isNew) {
 										console.log('有新消息')
-										uni.showTabBarRedDot({
-											index: 2
-										});
+										flag2 = true
 									}
 								}
+							}
+
+							if (flag1 || flag2) {
+								this.$nextTick(function() {
+									uni.showTabBarRedDot({
+										index: 2
+									})
+								})
+
+							} else {
+								this.$nextTick(function() {
+									uni.hideTabBarRedDot({
+										index: 2
+									})
+								})
+
 							}
 							// if (this.flag === false) return; // flag
 
@@ -159,9 +169,6 @@
 					});
 			},
 			async downlaodChat(chatsArr) {
-				uni.showTabBarRedDot({
-					index: 2
-				});
 				// console.log('this.commitData',this.commitData)
 				const db = wx.cloud.database();
 				const _ = db.command;

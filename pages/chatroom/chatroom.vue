@@ -49,6 +49,18 @@ export default {
 		// 			console.log('已读', res);
 		// 		});
 		// },
+		clearIsNew(chatId){
+			console.log(chatId)
+			wx.cloud.callFunction({
+				name:'isNew',
+				data:{
+					chatid:chatId
+				}
+			})
+			.then(res=>{
+				console.log('clearIsNew')
+			})
+		},
 		scroll() {
 			uni.pageScrollTo({
 				scrollTop: 99999999,
@@ -60,6 +72,7 @@ export default {
 			// 话要一句一句说
 			this.sending = true
 			let msg = this.message;
+			if(!msg) return
 			let chatid = this.options.chatid;
 			let target = this.targetInfo._openid;
 			await wx.cloud
@@ -82,17 +95,18 @@ export default {
 				.collection('chats')
 				.doc(this.options.chatid)
 				.watch({
-					onChange: snapshot => {												
+					onChange: snapshot => {
 						let newDialoge = snapshot.docs[0].dialoge;
-						// if(snapshot.docChanges[0].dataType==='init'){
-						// 	console.log('init,不执行啧监听逻辑到此为止')
-						// 	return
-						// }
-						if (!newDialoge || !newDialoge.length) return;
-						newDialoge = newDialoge[newDialoge.length - 1];
-
+						// console.log(newDialoge)
+						// // if(snapshot.docChanges[0].dataType==='init'){
+						// // 	console.log('init,不执行啧监听逻辑到此为止')
+						// // 	return
+						// // }
+						// if (!newDialoge || !newDialoge.length) return;
+						// newDialoge = newDialoge[newDialoge.length -1];
 						// 页面
-						this.dialoge = this.dialoge.concat(newDialoge);
+						// this.dialoge = [].concat(this.dialoge,newDialoge);
+						this.dialoge = newDialoge
 
 						// 滚动到底部
 						this.$nextTick(() => {
@@ -100,7 +114,7 @@ export default {
 						});
 						// 缓存
 						const oldCatch = uni.getStorageSync(this.options.chatid);
-						uni.setStorageSync(this.options.chatid, oldCatch.concat(newDialoge));
+						// uni.setStorageSync(this.options.chatid, oldCatch.concat(newDialoge));
 						
 						// last
 						this.updateNow(true)
@@ -135,6 +149,8 @@ export default {
 		});
 		// this.isRead(options.chatid);
 		this.watchCurrentChat()
+		// 进入聊天后将isNew标识去掉
+		this.clearIsNew(options.chatid)
 	},
 	async onUnload(){
 		await this.chatRoomWatcher.close()
